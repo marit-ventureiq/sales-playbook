@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Pipeline Playbook — Venture IQ</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #eceff3; --surface: #ffffff; --surface-2: #f6f8fa; --surface-3: #eef1f5;
+  --border: #e6e9ee; --border-med: #d7dce3;
+  --text: #1a2230; --text-2: #5b6675; --text-3: #98a1b0;
+  --primary: #2563eb; --primary-bg: #eaf1fe; --primary-border: #bcd3fb;
+  --apollo: #6366f1; --apollo-bg: #eef0fe; --apollo-border: #d4d8fb;
+  --hs: #ea6a2e; --hs-bg: #fdeee4; --hs-border: #f6cdb2;
+  --sl: #0ea5e9; --sl-bg: #e5f4fd; --sl-border: #b6e2f7;
+  --green: #16a34a; --green-bg: #e6f4ec; --green-border: #b7e0c6;
+  --amber: #d97706; --amber-bg: #fcf1e2; --amber-border: #f2d9ac;
+  --red: #dc2626; --red-bg: #fdeaea; --red-border: #f4c4c4;
+  --r: 16px; --r-sm: 10px;
+  --shadow: 0 1px 2px rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.06);
+  --shadow-md: 0 4px 14px rgba(16,24,40,.07);
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; padding: 40px 24px 100px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+.page { max-width: 900px; margin: 0 auto; }
+a { color: var(--primary); }
+
+/* Header */
+.header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 26px; }
+.brand-logo { width: 46px; height: 46px; border-radius: 12px; background: var(--primary); color: #fff; font-weight: 700; font-size: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: var(--shadow); }
+.header-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 6px; }
+.header-title { font-size: 27px; font-weight: 700; color: var(--text); letter-spacing: -.02em; line-height: 1.2; margin-bottom: 6px; }
+.header-sub { font-size: 14px; color: var(--text-2); }
+.header-meta { display: flex; gap: 18px; margin-top: 14px; flex-wrap: wrap; }
+.meta-item { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--text-2); }
+.meta-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* Progress */
+.progress-wrap { margin: 6px 0 28px; padding: 16px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); }
+.progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 11px; }
+.progress-label { font-size: 12.5px; color: var(--text-2); font-weight: 500; }
+.progress-count { font-size: 12.5px; font-weight: 700; color: var(--primary); font-family: var(--mono); }
+.progress-bar { height: 7px; background: var(--surface-3); border-radius: 999px; overflow: hidden; }
+.progress-fill { height: 100%; width: 0%; background: var(--primary); border-radius: 999px; transition: width .35s ease; }
+.progress-reset { font-size: 11.5px; color: var(--text-3); background: none; border: none; cursor: pointer; font-family: inherit; }
+.progress-reset:hover { color: var(--text-2); text-decoration: underline; }
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 26px; background: var(--surface-3); padding: 5px; border-radius: 12px; border: 1px solid var(--border); }
+.tab { font-size: 13px; font-weight: 500; padding: 9px 16px; border-radius: 8px; border: 1px solid transparent; color: var(--text-2); background: transparent; cursor: pointer; font-family: var(--font); transition: all .15s; display: flex; align-items: center; gap: 8px; }
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--primary); background: var(--surface); border-color: var(--border); box-shadow: var(--shadow); font-weight: 600; }
+.tab .tdot { width: 8px; height: 8px; border-radius: 50%; }
+.tab-panel { display: none; animation: fade .25s ease; }
+.tab-panel.active { display: block; }
+@keyframes fade { from { opacity: 0; transform: translateY(4px);} to { opacity: 1; transform: none;} }
+
+/* Section labels */
+.section-label { font-size: 11px; font-weight: 600; color: var(--text-3); letter-spacing: .08em; text-transform: uppercase; margin: 30px 0 12px; display: flex; align-items: center; gap: 10px; }
+.section-label:first-of-type { margin-top: 0; }
+.section-label::after { content:''; flex:1; height:1px; background:var(--border); }
+.lede { font-size: 14px; color: var(--text-2); line-height: 1.7; margin-bottom: 8px; }
+
+/* Tool intro */
+.tool-intro { display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px; border-radius: var(--r); margin-bottom: 14px; border: 1px solid var(--border); background: var(--surface); box-shadow: var(--shadow); }
+.tool-intro-icon { width: 42px; height: 42px; border-radius: 11px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:16px; flex-shrink:0; color:#fff; }
+.tool-intro.apollo .tool-intro-icon { background: var(--apollo); }
+.tool-intro.hs .tool-intro-icon { background: var(--hs); }
+.tool-intro.sl .tool-intro-icon { background: var(--sl); }
+.tool-intro-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.tool-intro-sub { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+/* Step card */
+.step-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); margin-bottom: 14px; overflow: hidden; box-shadow: var(--shadow); }
+.step-card.apollo { border-left: 3px solid var(--apollo); }
+.step-card.hs { border-left: 3px solid var(--hs); }
+.step-card.sl { border-left: 3px solid var(--sl); }
+.step-head { display: flex; align-items: center; gap: 14px; padding: 16px 20px; cursor: pointer; user-select: none; }
+.step-head:hover { background: var(--surface-2); }
+.step-badge { width: 30px; height: 30px; border-radius: 8px; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; }
+.step-card.apollo .step-badge { background: var(--apollo-bg); color: var(--apollo); }
+.step-card.hs .step-badge { background: var(--hs-bg); color: var(--hs); }
+.step-card.sl .step-badge { background: var(--sl-bg); color: var(--sl); }
+.step-head-text { flex: 1; }
+.step-kicker { font-size: 10px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--text-3); margin-bottom: 2px; }
+.step-title { font-size: 15px; font-weight: 600; color: var(--text); }
+.step-chevron { color: var(--text-3); font-size: 11px; transition: transform .2s; flex-shrink:0; }
+.step-card.open .step-chevron { transform: rotate(90deg); }
+.step-done-pill { font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: var(--green-bg); color: var(--green); border:1px solid var(--green-border); display:none; letter-spacing:.04em; text-transform:uppercase; }
+.step-card.done .step-done-pill { display: inline-block; }
+.step-body { display: none; padding: 4px 20px 20px; border-top: 1px solid var(--border); }
+.step-card.open .step-body { display: block; }
+.block-label { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); margin: 18px 0 8px; }
+
+/* Context text */
+.context p { font-size: 13.5px; color: var(--text-2); line-height: 1.7; }
+.context p + p { margin-top: 8px; }
+
+/* Video embed */
+.video-embed { margin-top: 6px; border-radius: var(--r-sm); overflow: hidden; border: 1px solid var(--border-med); background: #0b1220; position: relative; padding-bottom: 62%; height: 0; }
+.video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-placeholder { padding-bottom: 0 !important; height: auto; background: var(--surface-2); border: 1px dashed var(--border-med); display:flex; flex-direction: column; align-items:center; justify-content:center; text-align:center; padding: 32px 20px; gap: 7px; }
+.video-placeholder .vp-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); }
+.video-placeholder .vp-title { font-size: 13px; color: var(--text-2); font-weight: 500; }
+.video-placeholder .vp-sub { font-size: 11.5px; color: var(--text-3); font-family: var(--mono); }
+
+/* Image figure */
+.figure { margin-top: 6px; }
+.figure img { width: 100%; border-radius: var(--r-sm); border: 1px solid var(--border); display: block; }
+.figure figcaption { font-size: 11.5px; color: var(--text-3); margin-top: 6px; }
+
+/* Callouts */
+.callout { margin-top: 8px; padding: 11px 14px; border-radius: var(--r-sm); font-size: 12.5px; line-height: 1.6; display:flex; gap:11px; align-items: baseline; border: 1px solid; }
+.callout-tag { font-size: 9.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 8px; border-radius: 5px; flex-shrink:0; }
+.callout.tip { background: var(--green-bg); border-color: var(--green-border); color: #1f6b3b; }
+.callout.tip .callout-tag { background: var(--green); color: #fff; }
+.callout.warn { background: var(--amber-bg); border-color: var(--amber-border); color: #8a5108; }
+.callout.warn .callout-tag { background: var(--amber); color: #fff; }
+.callout.danger { background: var(--red-bg); border-color: var(--red-border); color: #9c2020; }
+.callout.danger .callout-tag { background: var(--red); color: #fff; }
+.callout.info { background: var(--surface-2); border-color: var(--border); color: var(--text-2); }
+.callout.info .callout-tag { background: var(--text-3); color: #fff; }
+.callout strong { color: inherit; font-weight: 700; }
+
+/* Checklist */
+.checklist { display:flex; flex-direction: column; gap: 4px; margin-top: 6px; }
+.check-item { display:flex; align-items:flex-start; gap: 11px; padding: 9px 12px; border-radius: var(--r-sm); background: var(--surface-2); border:1px solid var(--border); cursor:pointer; transition: all .12s; }
+.check-item:hover { border-color: var(--border-med); }
+.check-item input { appearance:none; -webkit-appearance:none; width: 17px; height: 17px; border:1.5px solid var(--text-3); border-radius: 5px; margin-top: 1px; flex-shrink:0; cursor:pointer; position:relative; transition: all .15s; background:#fff; }
+.check-item input:checked { background: var(--primary); border-color: var(--primary); }
+.check-item input:checked::after { content:'\2713'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#fff; }
+.check-label { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+.check-item input:checked + .check-label { color: var(--text-3); text-decoration: line-through; }
+
+/* Tags */
+.tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.tag { font-size: 11.5px; padding: 3px 10px; border-radius: 6px; border: 1px solid var(--border-med); color: var(--text-2); background: var(--surface-2); line-height: 1.6; }
+.tag.green { background: var(--green-bg); color: var(--green); border-color: var(--green-border); }
+.tag.red { background: var(--red-bg); color: var(--red); border-color: var(--red-border); }
+.tag.amber { background: var(--amber-bg); color: var(--amber); border-color: var(--amber-border); }
+.tag.apollo { background: var(--apollo-bg); color: var(--apollo); border-color: var(--apollo-border); }
+.tag.hs { background: var(--hs-bg); color: var(--hs); border-color: var(--hs-border); }
+.tag.sl { background: var(--sl-bg); color: var(--sl); border-color: var(--sl-border); }
+code { font-family: var(--mono); font-size: 11.5px; background: var(--surface-3); padding: 1px 6px; border-radius: 5px; border: 1px solid var(--border); color: var(--text); }
+strong { color: var(--text); font-weight: 600; }
+em { font-style: italic; }
+
+/* Overview pipeline */
+.pipe-flow { display:flex; flex-direction:column; gap:0; margin: 6px 0 8px; }
+.pipe-node { display:flex; gap:14px; align-items:flex-start; padding: 16px 18px; background: var(--surface); border:1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); }
+.pipe-node.apollo { border-left:3px solid var(--apollo); }
+.pipe-node.hs { border-left:3px solid var(--hs); }
+.pipe-node.sl { border-left:3px solid var(--sl); }
+.pipe-icon { width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0; color:#fff; }
+.pipe-node.apollo .pipe-icon { background: var(--apollo); }
+.pipe-node.hs .pipe-icon { background: var(--hs); }
+.pipe-node.sl .pipe-icon { background: var(--sl); }
+.pipe-title { font-size:14px; font-weight:600; color:var(--text); margin-bottom:3px; }
+.pipe-desc { font-size:12.5px; color:var(--text-2); line-height:1.6; }
+.pipe-connector { height:18px; margin-left: 37px; width:2px; background: var(--border-med); }
+.pipe-jump { font-size:11.5px; color:var(--primary); background:none; border:none; cursor:pointer; font-family:inherit; padding:0; margin-top:8px; font-weight:600; }
+.pipe-jump:hover { text-decoration:underline; }
+
+/* ICP glossary */
+.icp-grid { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.icp-chip { font-size: 13px; padding: 8px 15px; border-radius: 10px; border: 1px solid var(--border); color: var(--text-2); background: var(--surface); cursor: pointer; transition: all .15s; font-family: inherit; display:flex; align-items:center; gap:8px; box-shadow: var(--shadow); }
+.icp-chip .icp-dot { width:8px; height:8px; border-radius:50%; }
+.icp-chip:hover { border-color: var(--border-med); color: var(--text); }
+.icp-chip.active { background: var(--primary-bg); color: var(--primary); border-color: var(--primary-border); font-weight:600; }
+.icp-panel { display:none; padding: 18px 20px; background: var(--surface); border:1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); }
+.icp-panel.active { display:block; }
+.icp-panel h4 { font-size: 15px; color: var(--text); margin-bottom: 6px; font-weight: 700; }
+.icp-panel p { font-size: 13px; color: var(--text-2); line-height: 1.65; margin-bottom: 10px; }
+.def-row { display:grid; grid-template-columns: 130px 1fr; gap: 2px 0; margin-top: 8px; border-top:1px solid var(--border); }
+.def-k { font-size: 11.5px; color: var(--text-3); font-weight:600; padding: 8px 0; border-bottom:1px solid var(--border); }
+.def-v { font-size: 12.5px; color: var(--text-2); padding: 8px 0; line-height:1.5; border-bottom:1px solid var(--border); }
+
+/* Country grid */
+.country-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(155px,1fr)); gap:8px; }
+.country-card { padding: 12px 14px; background: var(--surface); border:1px solid var(--border); border-radius: var(--r-sm); box-shadow: var(--shadow); }
+.country-name { font-size: 13px; font-weight:600; color: var(--text); margin-bottom: 2px; }
+.country-note { font-size: 11.5px; color: var(--text-3); }
+
+/* FAQ */
+.faq-item { border:1px solid var(--border); border-radius: var(--r-sm); margin-bottom: 8px; overflow:hidden; background: var(--surface); box-shadow: var(--shadow); }
+.faq-q { padding: 14px 16px; font-size: 13.5px; color: var(--text); cursor:pointer; display:flex; justify-content:space-between; gap:12px; align-items:center; font-weight:600; }
+.faq-q:hover { background: var(--surface-2); }
+.faq-q .fchev { color: var(--text-3); transition: transform .2s; flex-shrink:0; font-size:11px; }
+.faq-item.open .fchev { transform: rotate(90deg); }
+.faq-a { display:none; padding: 0 16px 14px; font-size: 13px; color: var(--text-2); line-height: 1.7; }
+.faq-item.open .faq-a { display:block; }
+.faq-tag { font-size:9.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:2px 8px; border-radius:5px; margin-right:8px; }
+.faq-tag.apollo { background:var(--apollo-bg); color:var(--apollo); }
+.faq-tag.hs { background:var(--hs-bg); color:var(--hs); }
+.faq-tag.sl { background:var(--sl-bg); color:var(--sl); }
+.faq-tag.gen { background:var(--primary-bg); color:var(--primary); }
+
+/* Ask form */
+.ask-box { margin-top: 18px; padding: 22px; background: var(--surface); border:1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); }
+.ask-box h3 { font-size: 15px; color: var(--text); margin-bottom: 4px; font-weight:700; }
+.ask-box .ask-sub { font-size:12.5px; color: var(--text-2); margin-bottom: 14px; line-height:1.6; }
+.ask-field { margin-bottom: 12px; }
+.ask-field label { display:block; font-size:11px; color:var(--text-3); font-weight:600; letter-spacing:.06em; text-transform:uppercase; margin-bottom:6px; }
+.ask-field select, .ask-field input, .ask-field textarea { width:100%; background: var(--surface); border:1px solid var(--border-med); border-radius: var(--r-sm); color: var(--text); font-family: inherit; font-size: 13px; padding: 10px 12px; }
+.ask-field textarea { min-height: 90px; resize: vertical; }
+.ask-field select:focus, .ask-field input:focus, .ask-field textarea:focus { outline:none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-bg); }
+.ask-btn { background: var(--primary); color:#fff; border:none; border-radius: var(--r-sm); font-family:inherit; font-size:13px; font-weight:600; padding: 10px 22px; cursor:pointer; transition: opacity .15s; }
+.ask-btn:hover { opacity:.9; }
+.ask-status { font-size:12px; margin-top:10px; }
+
+/* Maintainer note */
+.maint-note { margin-top: 34px; padding: 18px 20px; background: var(--surface); border:1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); }
+.maint-note summary { font-size:12px; color:var(--text-2); cursor:pointer; font-weight:600; letter-spacing:.04em; text-transform:uppercase; }
+.maint-note[open] summary { margin-bottom:12px; }
+.maint-note p, .maint-note li { font-size:12.5px; color:var(--text-2); line-height:1.65; }
+.maint-note ol { margin: 6px 0 6px 18px; }
+.maint-note code { font-size:11px; }
+
+.footer { margin-top: 40px; padding-top: 18px; border-top:1px solid var(--border); font-size:11.5px; color: var(--text-3); text-align:center; }
+.footer .edit-link { background:none; border:none; color:var(--text-3); font-family:inherit; font-size:11.5px; cursor:pointer; text-decoration:underline; }
+.footer .edit-link:hover { color: var(--text-2); }
+
+/* Edit mode */
+body.editing [data-editable] { outline: 1px dashed var(--primary-border); outline-offset: 3px; border-radius: 4px; transition: background .12s; }
+body.editing [data-editable]:hover { background: var(--primary-bg); }
+body.editing [data-editable]:focus { outline: 2px solid var(--primary); background: #fff; }
+.edit-toolbar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--text); color:#fff; border-radius: 12px; padding: 10px 14px; display: none; align-items: center; gap: 12px; box-shadow: 0 8px 30px rgba(16,24,40,.28); z-index: 1000; }
+body.editing .edit-toolbar { display: flex; }
+.edit-toolbar .et-label { font-size: 12px; font-weight: 600; display:flex; align-items:center; gap:8px; }
+.edit-toolbar .et-label::before { content:''; width:8px; height:8px; border-radius:50%; background:#4ade80; box-shadow:0 0 0 3px rgba(74,222,128,.25); }
+.edit-toolbar .et-hint { font-size: 11px; color: rgba(255,255,255,.6); }
+.edit-toolbar button { font-family: inherit; font-size: 12px; font-weight: 600; border: none; border-radius: 8px; padding: 8px 14px; cursor: pointer; }
+.et-save { background: var(--primary); color: #fff; }
+.et-save:hover { opacity:.9; }
+.et-exit { background: rgba(255,255,255,.14); color: #fff; }
+.et-exit:hover { background: rgba(255,255,255,.24); }
+.video-url-field { margin-top: 8px; display: none; }
+body.editing .video-url-field { display: block; }
+.video-url-field label { font-size: 10px; font-weight: 700; letter-spacing:.06em; text-transform:uppercase; color: var(--primary); display:block; margin-bottom:4px; }
+.video-url-field input { width: 100%; font-family: var(--mono); font-size: 12px; padding: 8px 10px; border: 1px solid var(--primary-border); border-radius: 8px; background: var(--primary-bg); color: var(--text); }
+.video-url-field input:focus { outline: none; border-color: var(--primary); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="brand-logo">V</div>
+    <div>
+      <p class="header-eyebrow">Venture IQ &middot; Internal Handover</p>
+      <h1 class="header-title">Sales Pipeline Playbook</h1>
+      <p class="header-sub">How we source, qualify, route and email our ICPs &mdash; Apollo &rarr; HubSpot &rarr; Lemlist. A living onboarding guide.</p>
+      <div class="header-meta">
+        <div class="meta-item"><div class="meta-dot" style="background:var(--apollo)"></div>Apollo &middot; source &amp; qualify</div>
+        <div class="meta-item"><div class="meta-dot" style="background:var(--hs)"></div>HubSpot &middot; route &amp; store</div>
+        <div class="meta-item"><div class="meta-dot" style="background:var(--sl)"></div>Lemlist &middot; email &amp; launch</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-wrap">
+    <div class="progress-top">
+      <span class="progress-label">Your onboarding progress</span>
+      <span class="progress-count" id="progressCount">0 / 0</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div style="text-align:right;margin-top:9px;"><button class="progress-reset" id="progressReset">Reset progress</button></div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-tab="overview">Overview &amp; ICPs</button>
+    <button class="tab" data-tab="apollo"><span class="tdot" style="background:var(--apollo)"></span>Apollo</button>
+    <button class="tab" data-tab="hubspot"><span class="tdot" style="background:var(--hs)"></span>HubSpot</button>
+    <button class="tab" data-tab="lemlist"><span class="tdot" style="background:var(--sl)"></span>Lemlist</button>
+    <button class="tab" data-tab="questions">Questions</button>
+  </div>
+
+  <!-- ============ OVERVIEW ============ -->
+  <div class="tab-panel active" id="panel-overview">
+    <p class="lede">Welcome. This playbook is your complete handover for running and automating the outbound sales pipeline. Start here to understand <strong>why</strong> the system exists and how the three tools connect, then use the tool tabs above for step-by-step video walkthroughs. Every step has a checklist that saves your progress automatically.</p>
+
+    <div class="section-label">The big picture</div>
+    <div class="context" style="margin-bottom:6px;">
+      <p>We run one repeatable pipeline for every <strong>ICP &times; country</strong> combination. Contacts are <strong>sourced and qualified in Apollo</strong>, <strong>routed and stored in HubSpot</strong>, then <strong>emailed from Lemlist</strong>. The goal is that once a combination is set up, it stays fresh on its own &mdash; new matching contacts flow in automatically, and outdated ones drop out.</p>
+    </div>
+
+    <div class="pipe-flow">
+      <div class="pipe-node apollo">
+        <div class="pipe-icon">A</div>
+        <div>
+          <div class="pipe-title">1 &middot; Apollo — source &amp; qualify</div>
+          <div class="pipe-desc">Set persona filters per ICP + country, add matches to a dedicated list, then build a workflow so the list keeps itself up to date (adds new matches, removes contacts that no longer fit).</div>
+          <button class="pipe-jump" data-goto="apollo">Open Apollo steps &rarr;</button>
+        </div>
+      </div>
+      <div class="pipe-connector"></div>
+      <div class="pipe-node hs">
+        <div class="pipe-icon">H</div>
+        <div>
+          <div class="pipe-title">2 &middot; HubSpot — route &amp; store</div>
+          <div class="pipe-desc">Create a filtered, dynamic list per ICP + country and stamp the ICP type. When contacts are pushed from Apollo, anyone matching the criteria lands in the right list automatically.</div>
+          <button class="pipe-jump" data-goto="hubspot">Open HubSpot steps &rarr;</button>
+        </div>
+      </div>
+      <div class="pipe-connector"></div>
+      <div class="pipe-node sl">
+        <div class="pipe-icon">L</div>
+        <div>
+          <div class="pipe-title">3 &middot; Lemlist — email &amp; launch</div>
+          <div class="pipe-desc">Build a campaign with the email sequence written for that ICP, import the matching HubSpot list, and launch according to the sending criteria.</div>
+          <button class="pipe-jump" data-goto="lemlist">Open Lemlist steps &rarr;</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="block-label">Pipeline overview — video</div>
+    <div class="video-embed" data-arcade="overview"></div>
+
+    <!-- ICPs -->
+    <div class="section-label">Our ICPs</div>
+    <p class="lede">An <strong>ICP (Ideal Customer Profile)</strong> is a defined type of firm/person we target. Each ICP has its own Apollo persona, its own AI qualification filter, its own HubSpot list, and its own Lemlist email copy &mdash; they are never mixed. Click one to see how we define it.</p>
+    <div class="icp-grid" id="icpGrid">
+      <button class="icp-chip active" data-icp="pe"><span class="icp-dot" style="background:var(--green)"></span>Private Equity</button>
+      <button class="icp-chip" data-icp="ma"><span class="icp-dot" style="background:var(--primary)"></span>M&amp;A Boutiques</button>
+      <button class="icp-chip" data-icp="vc"><span class="icp-dot" style="background:var(--red)"></span>VC Firms</button>
+      <button class="icp-chip" data-icp="cma"><span class="icp-dot" style="background:#8b5cf6"></span>Corporate M&amp;A</button>
+      <button class="icp-chip" data-icp="cvc"><span class="icp-dot" style="background:var(--amber)"></span>Corporate VC</button>
+      <button class="icp-chip" data-icp="sf"><span class="icp-dot" style="background:#14b8a6"></span>Search Fund</button>
+    </div>
+
+    <div class="icp-panel active" data-icp-panel="pe">
+      <h4>Private Equity (PE)</h4>
+      <p>Dedicated private-equity funds that raise capital to buy and grow companies. We want the people involved in deal sourcing, acquisitions and fund management.</p>
+      <div class="def-row">
+        <div class="def-k">Qualifies</div><div class="def-v">Employer is clearly a PE fund/firm; title relates to deal sourcing, acquisitions or fund management (Partner, Principal, Associate, Analyst, Investment/Portfolio Manager).</div>
+        <div class="def-k">Excludes</div><div class="def-v">Management consulting, M&amp;A advisory, investment banking, VC, hedge funds, or any financial-services firm not primarily a PE fund.</div>
+        <div class="def-k">HubSpot ICP</div><div class="def-v"><code>PE</code></div>
+        <div class="def-k">Apollo list</div><div class="def-v"><code>Segment for targeted outreach PE [Country]</code></div>
+      </div>
+    </div>
+    <div class="icp-panel" data-icp-panel="ma">
+      <h4>M&amp;A Boutiques</h4>
+      <p>Specialist M&amp;A advisory firms &mdash; not the Big Four, not investment banks. We want people doing deal execution, origination and transaction advisory.</p>
+      <div class="def-row">
+        <div class="def-k">Qualifies</div><div class="def-v">Specialist M&amp;A advisory firm; role involves deal execution, origination or transaction advisory.</div>
+        <div class="def-k">Excludes</div><div class="def-v">Large investment banks, Big Four, general management consultants, PE or VC funds; operational/admin roles.</div>
+        <div class="def-k">HubSpot ICP</div><div class="def-v"><code>M&amp;A</code></div>
+        <div class="def-k">Apollo list</div><div class="def-v"><code>Segment for targeted outreach MA [Country]</code></div>
+      </div>
+    </div>
+    <div class="icp-panel" data-icp-panel="vc">
+      <h4>VC Firms</h4>
+      <p>Dedicated venture capital funds that raise LP capital to invest in startups. We want people with an investment mandate.</p>
+      <div class="def-row">
+        <div class="def-k">Qualifies</div><div class="def-v">Dedicated VC fund; role involves sourcing, portfolio management or investment decisions.</div>
+        <div class="def-k">Excludes</div><div class="def-v">Corporate VC arms, PE funds, accelerators, incubators, angel networks; operational/admin roles.</div>
+        <div class="def-k">HubSpot ICP</div><div class="def-v"><code>VC</code></div>
+        <div class="def-k">Apollo list</div><div class="def-v"><code>Segment for targeted outreach VC [Country]</code></div>
+      </div>
+    </div>
+    <div class="icp-panel" data-icp-panel="cma">
+      <h4>Corporate M&amp;A Teams</h4>
+      <p>In-house corporate development / M&amp;A teams inside large operating companies that acquire other businesses. We want the people with a direct acquisitions mandate, not general finance or strategy.</p>
+      <div class="def-row">
+        <div class="def-k">Qualifies</div><div class="def-v">Contact works in a corporate development or in-house M&amp;A team at a large corporate, with a role directly involved in acquisitions, strategic partnerships, or target screening.</div>
+        <div class="def-k">Excludes</div><div class="def-v">Role is in finance, accounting, or general strategy without a clear M&amp;A mandate. Employer is an advisory firm, PE, or VC rather than an operating company.</div>
+        <div class="def-k">Company size</div><div class="def-v">200+ employees (large corporate)</div>
+        <div class="def-k">HubSpot ICP</div><div class="def-v"><code>Corp M&amp;A</code></div>
+        <div class="def-k">Apollo list</div><div class="def-v"><code>Segment for targeted outreach CorpMA [Country]</code></div>
+      </div>
+    </div>
+    <div class="icp-panel" data-icp-panel="cvc">
+      <h4>Corporate VC Teams</h4>
+      <p>Corporate venture arms that invest the parent company's balance sheet into startups. We want people with a genuine investment mandate inside the corporate, not independent VCs.</p>
+      <div class="def-row">
+        <div class="def-k">Qualifies</div><div class="def-v">Employer is a named CVC arm of a large corporate and the contact's role involves startup scouting, portfolio oversight, or investment decision-making.</div>
+        <div class="def-k">Excludes</div><div class="def-v">Employer is an independent VC, PE fund, or advisory firm. Role is operational, finance, or R&amp;D without an investment mandate.</div>
+        <div class="def-k">Company size</div><div class="def-v">5–50 employees (CVC team size)</div>
+        <div class="def-k">HubSpot ICP</div><div class="def-v"><code>Corp VC</code></div>
+        <div class="def-k">Apollo list</div><div class="def-v"><code>Segment for targeted outreach CVC [Country]</code></div>
+      </div>
+    </div>
+    <div class="icp-panel" data-icp-panel="sf">
+      <h4>Search Fund</h4>
+      <p>Searchers — individuals raising capital to find, acquire and then run a single company. Shown in the dashboards but <strong>not yet launched</strong> (0 campaigns).</p>
+      <div class="def-row">
+        <div class="def-k">Qualifies</div><div class="def-v"><em>Not yet launched — fill in from the Apollo persona + AI filter once the Search Fund campaign is set up.</em></div>
+        <div class="def-k">Excludes</div><div class="def-v"><em>Not yet launched — fill in when ready.</em></div>
+        <div class="def-k">HubSpot ICP</div><div class="def-v"><code>Search Fund</code></div>
+        <div class="def-k">Apollo list</div><div class="def-v"><code>Segment for targeted outreach SearchFund [Country]</code></div>
+      </div>
+    </div>
+
+    <!-- Countries -->
+    <div class="section-label">Target countries</div>
+    <p class="lede">Every ICP is run <strong>separately per country group</strong> &mdash; its own Apollo list, its own HubSpot list, and its own Lemlist campaign. This keeps sending volumes, language and localisation clean. These are the 12 groups currently tracked in the campaign dashboards; some are single countries and some are regional clusters.</p>
+    <div class="country-grid">
+      <div class="country-card"><div class="country-name">Spain</div><div class="country-note">Single market</div></div>
+      <div class="country-card"><div class="country-name">Italy</div><div class="country-note">Single market</div></div>
+      <div class="country-card"><div class="country-name">France</div><div class="country-note">Single market</div></div>
+      <div class="country-card"><div class="country-name">Germany</div><div class="country-note">Single market</div></div>
+      <div class="country-card"><div class="country-name">Portugal</div><div class="country-note">Single market</div></div>
+      <div class="country-card"><div class="country-name">Greece</div><div class="country-note">Single market</div></div>
+      <div class="country-card"><div class="country-name">UK</div><div class="country-note">Single market</div></div>
+      <div class="country-card"><div class="country-name">Ireland</div><div class="country-note">Single market</div></div>
+      <div class="country-card"><div class="country-name">CEE</div><div class="country-note">Central &amp; Eastern Europe cluster</div></div>
+      <div class="country-card"><div class="country-name">Balkans</div><div class="country-note">Regional cluster</div></div>
+      <div class="country-card"><div class="country-name">Baltics</div><div class="country-note">Estonia, Latvia, Lithuania</div></div>
+      <div class="country-card"><div class="country-name">Nordics</div><div class="country-note">Regional cluster</div></div>
+    </div>
+
+    <details class="maint-note">
+      <summary>For the maintainer — how to edit this playbook</summary>
+      <p>This is a single self-contained <code>index.html</code> file. You are the only person who can change what everyone sees, because publishing means committing the file to the repo — which only you can do.</p>
+      <p><strong>Easiest way — no code (Edit mode):</strong></p>
+      <ol>
+        <li>Scroll to the bottom and click <strong>"Edit this playbook"</strong>, then enter the passcode (set as <code>EDIT_PASSCODE</code> in the config block; currently <code>viq-sales</code> — change it).</li>
+        <li>Click any text to rewrite it. To add a video, paste the Arcade <em>embed link</em> into the box that appears under each step's video.</li>
+        <li>Click <strong>"Download updated file"</strong>. This saves a new <code>index.html</code> with your changes.</li>
+        <li><strong>Publish it:</strong> replace <code>index.html</code> in your GitHub repo with the downloaded file (drag-and-drop in the GitHub web UI, or commit it). GitHub Pages updates the live link within a minute. See <code>DEPLOY.md</code> for the one-time setup.</li>
+      </ol>
+      <p><strong>Editing the file directly (optional):</strong></p>
+      <ol>
+        <li><strong>Videos:</strong> paste the Arcade embed link into the <code>ARCADE</code> object near the bottom, next to the matching step key (e.g. <code>'apollo-1'</code>).</li>
+        <li><strong>Pictures:</strong> put the image in an <code>images/</code> folder next to this file and add <code>&lt;figure class="figure"&gt;&lt;img src="images/your-file.png" alt=""&gt;&lt;figcaption&gt;Caption&lt;/figcaption&gt;&lt;/figure&gt;</code> inside a step, or paste a hosted image URL as the <code>src</code>.</li>
+        <li><strong>FAQ:</strong> copy a <code>.faq-item</code> block in the Questions tab and change the question/answer.</li>
+        <li><strong>Log questions instead of email:</strong> set <code>QUESTION_ENDPOINT</code> to a Google Form / Airtable / webhook URL.</li>
+      </ol>
+    </details>
+  </div>
+
+  <!-- ============ APOLLO ============ -->
+  <div class="tab-panel" id="panel-apollo">
+    <div class="tool-intro apollo">
+      <div class="tool-intro-icon">A</div>
+      <div>
+        <div class="tool-intro-title">Apollo — source &amp; qualify contacts</div>
+        <div class="tool-intro-sub">Apollo is where leads enter the pipeline. You define who we want (persona filters), add them to a dedicated ICP &times; country list, and set up a workflow so the list maintains itself. Contacts are AI-qualified and stamped with an ICP before they ever reach HubSpot.</div>
+      </div>
+    </div>
+
+    <!-- A1 -->
+    <div class="step-card apollo" id="step-apollo-1">
+      <div class="step-head">
+        <div class="step-badge">1</div>
+        <div class="step-head-text">
+          <div class="step-kicker">Apollo · Step 1</div>
+          <div class="step-title">Select the persona filters for this ICP + country</div>
+        </div>
+        <span class="step-done-pill">Done</span>
+        <span class="step-chevron">&#9654;</span>
+      </div>
+      <div class="step-body">
+        <div class="block-label">What &amp; why</div>
+        <div class="context">
+          <p>Open the persona that belongs to <strong>this exact ICP</strong> (e.g. Private Equity) and confirm its filters are active. The persona is what defines "who counts" — management level, title keywords, exclusions and company size. Then layer on the <strong>target country</strong> and require a <strong>verified email</strong>.</p>
+          <p>Each ICP has its <em>own</em> persona — never reuse another ICP's persona, or you'll pull the wrong people.</p>
+        </div>
+        <div class="block-label">Watch</div>
+        <div class="video-embed" data-arcade="apollo-1"></div>
+        <div class="block-label">Key facts</div>
+        <div class="callout tip"><span class="callout-tag">Tip</span><span>Require <strong>verified email only</strong> — unverified emails hurt deliverability downstream in Lemlist.</span></div>
+        <div class="callout warn"><span class="callout-tag">Watch out</span><span>Each <strong>country gets its own list</strong>. Don't combine countries in one persona run.</span></div>
+        <div class="tag-row">
+          <span class="tag apollo">Persona: [ICP]</span>
+          <span class="tag">Country: [target]</span>
+          <span class="tag green">Verified email</span>
+        </div>
+        <div class="block-label">Checklist</div>
+        <div class="checklist" data-step="apollo-1">
+          <label class="check-item"><input type="checkbox"><span class="check-label">Opened the correct ICP persona (not reused from another ICP)</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Confirmed management level, keywords, exclude-lists and company size are active</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Added the target country filter</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Set "verified email only"</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- A2 -->
+    <div class="step-card apollo" id="step-apollo-2">
+      <div class="step-head">
+        <div class="step-badge">2</div>
+        <div class="step-head-text">
+          <div class="step-kicker">Apollo · Step 2</div>
+          <div class="step-title">Create the list &amp; add matching contacts</div>
+        </div>
+        <span class="step-done-pill">Done</span>
+        <span class="step-chevron">&#9654;</span>
+      </div>
+      <div class="step-body">
+        <div class="block-label">What &amp; why</div>
+        <div class="context">
+          <p>Create a <strong>brand-new list</strong> named for the ICP + country, then add the filtered contacts to it. This list is the "holding pen" the workflow and AI filter operate on.</p>
+        </div>
+        <div class="block-label">Watch</div>
+        <div class="video-embed" data-arcade="apollo-2"></div>
+        <div class="block-label">Key facts</div>
+        <div class="callout danger"><span class="callout-tag">Important</span><span>Do <strong>not duplicate</strong> an existing list to make a new one — duplicating copies all its contacts too and causes deduplication problems downstream. Always create a fresh, empty list.</span></div>
+        <div class="callout info"><span class="callout-tag">Naming</span><span>Naming convention: <code>Segment for targeted outreach [ICP] [Country]</code></span></div>
+        <div class="tag-row"><span class="tag apollo"><code>Segment for targeted outreach PE Netherlands</code></span></div>
+        <div class="block-label">Checklist</div>
+        <div class="checklist" data-step="apollo-2">
+          <label class="check-item"><input type="checkbox"><span class="check-label">Created a NEW empty list (did not duplicate)</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Named it with the ICP + country convention</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Added the filtered, verified contacts to the list</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- A3 -->
+    <div class="step-card apollo" id="step-apollo-3">
+      <div class="step-head">
+        <div class="step-badge">3</div>
+        <div class="step-head-text">
+          <div class="step-kicker">Apollo · Step 3</div>
+          <div class="step-title">Build the auto-update workflow + AI qualification</div>
+        </div>
+        <span class="step-done-pill">Done</span>
+        <span class="step-chevron">&#9654;</span>
+      </div>
+      <div class="step-body">
+        <div class="block-label">What &amp; why</div>
+        <div class="context">
+          <p>This is the automation that makes the list <em>self-maintaining</em>. Create a workflow triggered by the persona + country + verified-email conditions so new matching contacts are <strong>added automatically</strong> and contacts that no longer match drop out. Add the ICP's <strong>AI filter</strong> as a step so every contact is scored <strong>Qualified / Not Qualified</strong>, and set the <strong>ICP field</strong> only for contacts that are in this list <em>and</em> Qualified.</p>
+        </div>
+        <div class="block-label">Watch</div>
+        <div class="video-embed" data-arcade="apollo-3"></div>
+        <div class="block-label">Key facts</div>
+        <div class="callout warn"><span class="callout-tag">Watch out</span><span><strong>Apollo plan limits apply.</strong> Auto-adding via workflow and bulk AI research are both capped by plan — the Basic plan caps bulk AI runs at ~100/day. Confirm the plan or run in batches of 100.</span></div>
+        <div class="callout info"><span class="callout-tag">Repeat</span><span>Create a <strong>separate workflow per country</strong>, using each country's own list.</span></div>
+        <div class="tag-row">
+          <span class="tag green">In list + Qualified → set ICP</span>
+          <span class="tag red">Not Qualified → excluded</span>
+        </div>
+        <div class="block-label">Checklist</div>
+        <div class="checklist" data-step="apollo-3">
+          <label class="check-item"><input type="checkbox"><span class="check-label">Created a workflow triggered by persona + country + verified email</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Added the ICP's AI filter as a workflow step</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Set the ICP field only for in-list + Qualified contacts</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Confirmed plan limits / batching</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Duplicated the workflow for each additional country</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ HUBSPOT ============ -->
+  <div class="tab-panel" id="panel-hubspot">
+    <div class="tool-intro hs">
+      <div class="tool-intro-icon">H</div>
+      <div>
+        <div class="tool-intro-title">HubSpot — route &amp; store contacts</div>
+        <div class="tool-intro-sub">HubSpot is the CRM of record. You build one dynamic list per ICP &times; country with the right filters, then push qualified contacts from Apollo. Because the lists are dynamic, matching contacts route themselves into the correct list with no manual sorting.</div>
+      </div>
+    </div>
+
+    <!-- H1 -->
+    <div class="step-card hs" id="step-hubspot-1">
+      <div class="step-head">
+        <div class="step-badge">4</div>
+        <div class="step-head-text">
+          <div class="step-kicker">HubSpot · Step 4</div>
+          <div class="step-title">Create the ICP + country list with filters</div>
+        </div>
+        <span class="step-done-pill">Done</span>
+        <span class="step-chevron">&#9654;</span>
+      </div>
+      <div class="step-body">
+        <div class="block-label">What &amp; why</div>
+        <div class="context">
+          <p>Create an <strong>active (dynamic)</strong> list for the ICP + country. The fastest route is to duplicate an existing ICP list that already has the correct ICP filters, then change only the <strong>country condition</strong>. Dynamic means the list re-evaluates itself — contacts are picked up or dropped as their properties change.</p>
+        </div>
+        <div class="block-label">Watch</div>
+        <div class="video-embed" data-arcade="hubspot-1"></div>
+        <div class="block-label">Key facts</div>
+        <div class="callout danger"><span class="callout-tag">Important</span><span>The list must be <strong>Active / dynamic</strong>, never Static. A static list won't pick up newly pushed contacts.</span></div>
+        <div class="callout tip"><span class="callout-tag">Tip</span><span>When duplicating an ICP list, change <strong>only the country</strong> filter — leave the ICP filters as they are.</span></div>
+        <div class="tag-row">
+          <span class="tag">ICP = [ICP] (already set)</span>
+          <span class="tag amber">Update: Country = [target]</span>
+          <span class="tag green">Active / dynamic</span>
+        </div>
+        <div class="block-label">Checklist</div>
+        <div class="checklist" data-step="hubspot-1">
+          <label class="check-item"><input type="checkbox"><span class="check-label">Created / duplicated the list for this ICP + country</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Updated only the country condition</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Confirmed the list is Active (dynamic), not Static</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- H2 -->
+    <div class="step-card hs" id="step-hubspot-2">
+      <div class="step-head">
+        <div class="step-badge">5</div>
+        <div class="step-head-text">
+          <div class="step-kicker">HubSpot · Step 5</div>
+          <div class="step-title">Set the ICP type &amp; push contacts from Apollo</div>
+        </div>
+        <span class="step-done-pill">Done</span>
+        <span class="step-chevron">&#9654;</span>
+      </div>
+      <div class="step-body">
+        <div class="block-label">What &amp; why</div>
+        <div class="context">
+          <p>Confirm the list's <strong>ICP type</strong> matches the segment, then push the qualified contacts from Apollo (filter Apollo for <code>ICP = [ICP]</code> and export to HubSpot). Because the list is dynamic and filtered on ICP + country, anyone who meets the criteria is <strong>added to the correct list automatically</strong> — no manual assignment.</p>
+        </div>
+        <div class="block-label">Watch</div>
+        <div class="video-embed" data-arcade="hubspot-2"></div>
+        <div class="block-label">Key facts</div>
+        <div class="callout info"><span class="callout-tag">Note</span><span>The ICP field flows from Apollo. If a contact lands in the wrong list, check its ICP + country properties in HubSpot first.</span></div>
+        <div class="tag-row">
+          <span class="tag hs">ICP set on list</span>
+          <span class="tag apollo">Apollo: filter ICP = [ICP]</span>
+          <span class="tag green">Auto-routes to matching list</span>
+        </div>
+        <div class="block-label">Checklist</div>
+        <div class="checklist" data-step="hubspot-2">
+          <label class="check-item"><input type="checkbox"><span class="check-label">Confirmed the ICP type is set correctly on the list</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Filtered Apollo for ICP = this ICP and pushed to HubSpot</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Verified contacts appear in the correct dynamic list</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ LEMLIST ============ -->
+  <div class="tab-panel" id="panel-lemlist">
+    <div class="tool-intro sl">
+      <div class="tool-intro-icon">L</div>
+      <div>
+        <div class="tool-intro-title">Lemlist — email &amp; launch</div>
+        <div class="tool-intro-sub">Lemlist is where contacts actually get emailed. Each ICP has its own campaign with copy written for that audience. You import the matching HubSpot list, map the fields, choose sending accounts, and launch according to the sending criteria.</div>
+      </div>
+    </div>
+
+    <!-- L1 -->
+    <div class="step-card sl" id="step-lemlist-1">
+      <div class="step-head">
+        <div class="step-badge">6</div>
+        <div class="step-head-text">
+          <div class="step-kicker">Lemlist · Step 6</div>
+          <div class="step-title">Set up the campaign &amp; email sequence for the ICP</div>
+        </div>
+        <span class="step-done-pill">Done</span>
+        <span class="step-chevron">&#9654;</span>
+      </div>
+      <div class="step-body">
+        <div class="block-label">What &amp; why</div>
+        <div class="context">
+          <p>Create a new campaign for this ICP and build the <strong>email sequence</strong> using the copy written for that audience (subject lines, steps, delays). Each ICP speaks to a different reader, so the copy is never shared across ICPs.</p>
+        </div>
+        <div class="block-label">Watch</div>
+        <div class="video-embed" data-arcade="lemlist-1"></div>
+        <div class="block-label">Key facts</div>
+        <div class="callout tip"><span class="callout-tag">Tip</span><span>Use the ICP-specific copy. Personalisation variables (first name, company, country) must match the fields you map on import.</span></div>
+        <div class="callout info"><span class="callout-tag">Naming</span><span>Name the campaign for the ICP + country so it's obvious which HubSpot list feeds it.</span></div>
+        <div class="block-label">Checklist</div>
+        <div class="checklist" data-step="lemlist-1">
+          <label class="check-item"><input type="checkbox"><span class="check-label">Created a new campaign named for the ICP + country</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Built the sequence with the ICP's email copy</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Set step delays and personalisation variables</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- L2 -->
+    <div class="step-card sl" id="step-lemlist-2">
+      <div class="step-head">
+        <div class="step-badge">7</div>
+        <div class="step-head-text">
+          <div class="step-kicker">Lemlist · Step 7</div>
+          <div class="step-title">Import the HubSpot list &amp; launch by criteria</div>
+        </div>
+        <span class="step-done-pill">Done</span>
+        <span class="step-chevron">&#9654;</span>
+      </div>
+      <div class="step-body">
+        <div class="block-label">What &amp; why</div>
+        <div class="context">
+          <p>Import the matching HubSpot list into the campaign, <strong>map the fields</strong> (including Country so it carries into email variables), choose sending accounts, and launch according to the sending criteria (volume caps, don't re-enrol active contacts).</p>
+        </div>
+        <div class="block-label">Watch</div>
+        <div class="video-embed" data-arcade="lemlist-2"></div>
+        <div class="block-label">Key facts</div>
+        <div class="callout warn"><span class="callout-tag">Watch out</span><span>Turn <strong>"skip contacts already in another campaign" ON</strong> so no one gets enrolled twice.</span></div>
+        <div class="callout tip"><span class="callout-tag">Tip</span><span>Map every field you use in the copy — especially <strong>Country → Country</strong> — or variables render blank.</span></div>
+        <div class="tag-row">
+          <span class="tag sl">Import from HubSpot</span>
+          <span class="tag green">Map fields</span>
+          <span class="tag amber">Respect sending caps</span>
+        </div>
+        <div class="block-label">Checklist</div>
+        <div class="checklist" data-step="lemlist-2">
+          <label class="check-item"><input type="checkbox"><span class="check-label">Imported the correct HubSpot ICP + country list</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Mapped all fields (incl. Country)</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Enabled "skip contacts in other campaigns"</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Selected sending accounts and launched within sending caps</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout info" style="margin-top:8px;"><span class="callout-tag">Next</span><span>After launch, monitoring lives in the campaign metrics + inbox-placement dashboards. <em>Link those here once hosted.</em></span></div>
+  </div>
+
+  <!-- ============ QUESTIONS ============ -->
+  <div class="tab-panel" id="panel-questions">
+    <p class="lede">Start here when something isn't clear. Check the FAQ below — it's grouped by tool. If your question isn't answered, use the form at the bottom to send it to Marit; answered questions get added here so the playbook keeps improving.</p>
+
+    <div class="section-label">Frequently asked</div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span><span class="faq-tag gen">General</span>Do I run one pipeline for everything, or one per ICP and country?</span><span class="fchev">&#9654;</span></div>
+      <div class="faq-a">One full pipeline per <strong>ICP &times; country</strong> combination. Each has its own Apollo list + workflow, its own HubSpot dynamic list, and its own Lemlist campaign. They are never merged — this keeps qualification, copy and sending volumes clean.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span><span class="faq-tag apollo">Apollo</span>Why can't I just duplicate an existing list to make a new one?</span><span class="fchev">&#9654;</span></div>
+      <div class="faq-a">Duplicating a list in Apollo also copies all of its current contacts, which creates deduplication problems downstream. Always create a fresh, empty list and let the workflow populate it.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span><span class="faq-tag apollo">Apollo</span>My AI filter / workflow stopped adding contacts. Why?</span><span class="fchev">&#9654;</span></div>
+      <div class="faq-a">Most often it's the <strong>Apollo plan limit</strong>. Bulk AI research and auto-add are capped by plan (Basic ≈ 100/day). Check remaining credits/limits, or run in batches of 100.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span><span class="faq-tag hs">HubSpot</span>A contact isn't showing up in the list I expected.</span><span class="fchev">&#9654;</span></div>
+      <div class="faq-a">Check two things: (1) the list is <strong>Active / dynamic</strong>, not Static; (2) the contact's <strong>ICP</strong> and <strong>Country</strong> properties actually match the list filters. Those properties flow from Apollo, so fix them upstream if they're wrong.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span><span class="faq-tag sl">Lemlist</span>My email variables (name, company) are showing up blank.</span><span class="fchev">&#9654;</span></div>
+      <div class="faq-a">The field wasn't mapped on import. Re-check the field mapping step — every variable used in the copy must map to a HubSpot field, including Country.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span><span class="faq-tag sl">Lemlist</span>How do I make sure someone isn't emailed by two campaigns at once?</span><span class="fchev">&#9654;</span></div>
+      <div class="faq-a">Turn on <strong>"skip contacts already in another campaign"</strong> during import. This prevents double-enrolment.</div>
+    </div>
+
+    <!-- Ask a question -->
+    <div class="ask-box">
+      <h3>Ask a question</h3>
+      <p class="ask-sub">Can't find the answer? Send it over. It'll be logged and, once answered, added to the FAQ above.</p>
+      <form id="askForm">
+        <div class="ask-field">
+          <label for="askTool">What's it about?</label>
+          <select id="askTool">
+            <option value="General">General / workflow</option>
+            <option value="Apollo">Apollo</option>
+            <option value="HubSpot">HubSpot</option>
+            <option value="Lemlist">Lemlist</option>
+          </select>
+        </div>
+        <div class="ask-field">
+          <label for="askName">Your name (optional)</label>
+          <input type="text" id="askName" placeholder="e.g. Sam">
+        </div>
+        <div class="ask-field">
+          <label for="askText">Your question</label>
+          <textarea id="askText" placeholder="Describe what you're stuck on or want to understand…"></textarea>
+        </div>
+        <button type="submit" class="ask-btn">Send question</button>
+        <div class="ask-status" id="askStatus"></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="footer">Venture IQ — Sales Pipeline Playbook · Internal handover document · Keep this updated as the tools change.<br>
+    <button class="edit-link" id="editTrigger">Edit this playbook</button>
+  </div>
+
+</div>
+
+<div class="edit-toolbar" id="editToolbar">
+  <span class="et-label">Edit mode</span>
+  <span class="et-hint">Click any text to edit · paste video links under each step</span>
+  <button class="et-save" id="editSave">Download updated file</button>
+  <button class="et-exit" id="editExit">Exit</button>
+</div>
+
+<script>
+/* ============================================================
+   CONFIG — edit these two blocks
+   ============================================================ */
+
+// 1) ARCADE VIDEOS
+// Paste the Arcade "embed link" (https://demo.arcade.software/XXXX) next to each step key.
+// Leave empty ('') to show the "record this" placeholder.
+const ARCADE = {
+  'overview':   '',
+  'apollo-1':   '',
+  'apollo-2':   '',
+  'apollo-3':   '',
+  'hubspot-1':  '',
+  'hubspot-2':  '',
+  'lemlist-1':  '',
+  'lemlist-2':  ''
+};
+
+// 2) QUESTION FORM DESTINATION
+// Option A: leave empty -> the form opens a pre-filled email to the address below.
+// Option B: paste a Google Form / Airtable / webhook POST URL -> questions are logged there.
+const QUESTION_ENDPOINT = '';
+const QUESTION_EMAIL = 'marit@ventureiq.nl';
+
+// 3) EDIT-MODE PASSCODE
+// The "Edit this playbook" button asks for this before unlocking editing.
+// It only hides the edit controls from casual viewers — real changes are published
+// by downloading the updated file and committing it, which only you can do.
+const EDIT_PASSCODE = 'viq-sales';
+
+/* ============================================================
+   Behaviour — no need to edit below
+   ============================================================ */
+
+// --- Render Arcade embeds ---
+// URL priority: a per-video data-arcade-url (set via Edit mode) wins over the ARCADE config.
+function renderVideo(el) {
+  var key = el.getAttribute('data-arcade');
+  var url = el.getAttribute('data-arcade-url') || ARCADE[key] || '';
+  el.classList.remove('video-placeholder');
+  el.innerHTML = '';
+  if (url) {
+    var iframe = document.createElement('iframe');
+    iframe.src = url;
+    iframe.title = key + ' walkthrough';
+    iframe.loading = 'lazy';
+    iframe.allow = 'clipboard-write; fullscreen';
+    iframe.setAttribute('allowfullscreen', '');
+    el.appendChild(iframe);
+  } else {
+    el.classList.add('video-placeholder');
+    el.innerHTML = '<div class="vp-eyebrow">Video</div>'
+      + '<div class="vp-title">Arcade walkthrough goes here</div>'
+      + '<div class="vp-sub">ARCADE["' + key + '"]</div>';
+  }
+}
+document.querySelectorAll('.video-embed[data-arcade]').forEach(function (el) {
+  renderVideo(el);
+  // Editable URL field lives just after each video (hidden unless editing)
+  var f = document.createElement('div');
+  f.className = 'video-url-field';
+  f.innerHTML = '<label>Arcade embed link for this step</label>'
+    + '<input type="url" placeholder="https://demo.arcade.software/..." value="'
+    + (el.getAttribute('data-arcade-url') || '') + '">';
+  var input = f.querySelector('input');
+  input.addEventListener('input', function () {
+    if (input.value.trim()) { el.setAttribute('data-arcade-url', input.value.trim()); }
+    else { el.removeAttribute('data-arcade-url'); }
+    renderVideo(el);
+  });
+  el.insertAdjacentElement('afterend', f);
+});
+
+// --- Tabs ---
+var tabs = document.querySelectorAll('.tab');
+function activateTab(name) {
+  tabs.forEach(function (t) { t.classList.toggle('active', t.dataset.tab === name); });
+  document.querySelectorAll('.tab-panel').forEach(function (p) {
+    p.classList.toggle('active', p.id === 'panel-' + name);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+tabs.forEach(function (t) {
+  t.addEventListener('click', function () {
+    activateTab(t.dataset.tab);
+    history.replaceState(null, '', '#' + t.dataset.tab);
+  });
+});
+document.querySelectorAll('[data-goto]').forEach(function (b) {
+  b.addEventListener('click', function () { activateTab(b.dataset.goto); });
+});
+
+// --- ICP glossary chips ---
+var icpGrid = document.getElementById('icpGrid');
+if (icpGrid) {
+  icpGrid.querySelectorAll('.icp-chip').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      icpGrid.querySelectorAll('.icp-chip').forEach(function (c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      document.querySelectorAll('[data-icp-panel]').forEach(function (p) {
+        p.classList.toggle('active', p.getAttribute('data-icp-panel') === chip.dataset.icp);
+      });
+    });
+  });
+}
+
+// --- Step accordions ---
+document.querySelectorAll('.step-card .step-head').forEach(function (head) {
+  head.addEventListener('click', function () {
+    head.parentElement.classList.toggle('open');
+  });
+});
+
+// --- FAQ accordions ---
+document.querySelectorAll('.faq-q').forEach(function (q) {
+  q.addEventListener('click', function () { q.parentElement.classList.toggle('open'); });
+});
+
+// --- Checklist + progress (localStorage) ---
+var STORE_KEY = 'viq_playbook_progress_v1';
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch (e) { return {}; }
+}
+function saveState(s) { try { localStorage.setItem(STORE_KEY, JSON.stringify(s)); } catch (e) {} }
+var state = loadState();
+
+var allChecks = [];
+document.querySelectorAll('.checklist').forEach(function (list) {
+  var step = list.dataset.step;
+  list.querySelectorAll('input[type=checkbox]').forEach(function (cb, i) {
+    var id = step + ':' + i;
+    cb.dataset.id = id;
+    if (state[id]) cb.checked = true;
+    allChecks.push(cb);
+    cb.addEventListener('change', function () {
+      state[id] = cb.checked;
+      saveState(state);
+      refreshStepDone(step);
+      refreshProgress();
+    });
+  });
+});
+
+function refreshStepDone(step) {
+  var list = document.querySelector('.checklist[data-step="' + step + '"]');
+  if (!list) return;
+  var boxes = list.querySelectorAll('input[type=checkbox]');
+  var all = boxes.length > 0 && Array.prototype.every.call(boxes, function (b) { return b.checked; });
+  var card = document.getElementById('step-' + step);
+  if (card) card.classList.toggle('done', all);
+}
+function refreshProgress() {
+  var total = allChecks.length;
+  var done = allChecks.filter(function (c) { return c.checked; }).length;
+  document.getElementById('progressCount').textContent = done + ' / ' + total;
+  document.getElementById('progressFill').style.width = total ? (done / total * 100) + '%' : '0%';
+}
+document.querySelectorAll('.checklist').forEach(function (l) { refreshStepDone(l.dataset.step); });
+refreshProgress();
+
+document.getElementById('progressReset').addEventListener('click', function () {
+  if (!confirm('Reset all onboarding progress on this device?')) return;
+  state = {};
+  saveState(state);
+  allChecks.forEach(function (c) { c.checked = false; });
+  document.querySelectorAll('.step-card').forEach(function (c) { c.classList.remove('done'); });
+  refreshProgress();
+});
+
+// --- Ask a question ---
+document.getElementById('askForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var tool = document.getElementById('askTool').value;
+  var name = document.getElementById('askName').value.trim();
+  var text = document.getElementById('askText').value.trim();
+  var status = document.getElementById('askStatus');
+  if (!text) { status.style.color = 'var(--red)'; status.textContent = 'Please type your question first.'; return; }
+
+  if (QUESTION_ENDPOINT) {
+    status.style.color = 'var(--text-2)'; status.textContent = 'Sending…';
+    fetch(QUESTION_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tool: tool, name: name, question: text })
+    }).then(function () {
+      status.style.color = 'var(--green)';
+      status.textContent = 'Sent. Thanks — it will be answered and added to the FAQ.';
+      document.getElementById('askText').value = '';
+    }).catch(function () {
+      status.style.color = 'var(--red)';
+      status.textContent = 'Could not send automatically — opening an email instead.';
+      openMail(tool, name, text);
+    });
+  } else {
+    openMail(tool, name, text);
+    status.style.color = 'var(--green)';
+    status.textContent = 'Opening your email app with the question pre-filled.';
+  }
+});
+function openMail(tool, name, text) {
+  var subject = '[Playbook question] ' + tool + (name ? ' — ' + name : '');
+  var body = 'Tool: ' + tool + '\n' + (name ? 'From: ' + name + '\n' : '') + '\nQuestion:\n' + text;
+  window.location.href = 'mailto:' + QUESTION_EMAIL
+    + '?subject=' + encodeURIComponent(subject)
+    + '&body=' + encodeURIComponent(body);
+}
+
+// --- Edit mode ---
+// Text elements that become editable when edit mode is on.
+var EDITABLE_SELECTORS = [
+  '.header-title', '.header-sub', '.lede', '.context p',
+  '.tool-intro-title', '.tool-intro-sub', '.pipe-title', '.pipe-desc',
+  '.step-title', '.callout > span:last-child', '.check-label',
+  '.icp-panel h4', '.icp-panel p', '.def-v',
+  '.faq-q > span', '.faq-a', '.country-name', '.country-note'
+];
+var editing = false;
+
+function enterEdit() {
+  editing = true;
+  document.body.classList.add('editing');
+  EDITABLE_SELECTORS.forEach(function (sel) {
+    document.querySelectorAll(sel).forEach(function (el) {
+      if (el.closest('.edit-toolbar')) return;
+      el.setAttribute('data-editable', '');
+      el.setAttribute('contenteditable', 'true');
+    });
+  });
+}
+function exitEdit() {
+  editing = false;
+  document.body.classList.remove('editing');
+  document.querySelectorAll('[data-editable]').forEach(function (el) {
+    el.removeAttribute('contenteditable');
+    el.removeAttribute('data-editable');
+  });
+}
+
+document.getElementById('editTrigger').addEventListener('click', function () {
+  if (editing) return;
+  var pass = prompt('Enter the edit passcode to make changes:');
+  if (pass === null) return;
+  if (pass !== EDIT_PASSCODE) { alert('Incorrect passcode.'); return; }
+  enterEdit();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  alert('Edit mode is on.\n\n• Click any text to change it.\n• Paste an Arcade link in the box under each step video.\n\nWhen done, click "Download updated file" and re-publish it (see the maintainer note in Overview).');
+});
+document.getElementById('editExit').addEventListener('click', exitEdit);
+
+document.getElementById('editSave').addEventListener('click', function () {
+  // Build a clean standalone copy of the current (edited) page.
+  var clone = document.documentElement.cloneNode(true);
+  // Remove edit-only UI
+  var tb = clone.querySelector('#editToolbar'); if (tb) tb.remove();
+  clone.querySelectorAll('.video-url-field').forEach(function (n) { n.remove(); });
+  // Strip edit attributes
+  clone.querySelectorAll('[contenteditable]').forEach(function (n) { n.removeAttribute('contenteditable'); });
+  clone.querySelectorAll('[data-editable]').forEach(function (n) { n.removeAttribute('data-editable'); });
+  clone.querySelector('body').classList.remove('editing');
+  // Reset videos to empty containers (keep data-arcade + any data-arcade-url) so they re-render on load
+  clone.querySelectorAll('.video-embed[data-arcade]').forEach(function (n) {
+    n.classList.remove('video-placeholder');
+    n.innerHTML = '';
+  });
+  // Reset runtime state so the published file opens clean
+  clone.querySelectorAll('.tab').forEach(function (t, i) { t.classList.toggle('active', i === 0); });
+  clone.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.toggle('active', p.id === 'panel-overview'); });
+  clone.querySelectorAll('.icp-chip').forEach(function (c, i) { c.classList.toggle('active', i === 0); });
+  clone.querySelectorAll('[data-icp-panel]').forEach(function (p) { p.classList.toggle('active', p.getAttribute('data-icp-panel') === 'pe'); });
+  clone.querySelectorAll('.step-card').forEach(function (c) { c.classList.remove('open'); c.classList.remove('done'); });
+  clone.querySelectorAll('.faq-item').forEach(function (f) { f.classList.remove('open'); });
+  clone.querySelectorAll('.checklist input[type=checkbox]').forEach(function (cb) { cb.removeAttribute('checked'); });
+  clone.querySelectorAll('.progress-fill').forEach(function (n) { n.style.width = '0%'; });
+
+  var html = '<!DOCTYPE html>\n' + clone.outerHTML;
+  var blob = new Blob([html], { type: 'text/html' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'index.html';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+});
+
+// --- Open tab from URL hash ---
+(function () {
+  var h = (location.hash || '').replace('#', '');
+  if (h && document.getElementById('panel-' + h)) activateTab(h);
+})();
+</script>
+</body>
+</html>
