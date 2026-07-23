@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sales Pipeline Playbook — Venture IQ</title>
@@ -243,19 +242,19 @@ body.editing .video-url-field { display: block; }
 .video-url-field input:focus { outline: none; border-color: var(--primary); }
 </style>
 </head>
-<body>
+<body class="">
 <div class="page">
 
   <div class="header">
     <div class="brand-logo">V</div>
     <div>
-      <p class="header-eyebrow">Venture IQ &middot; Internal Handover</p>
+      <p class="header-eyebrow">Venture IQ · Internal Handover</p>
       <h1 class="header-title">Sales Pipeline Playbook</h1>
-      <p class="header-sub">How we source, qualify, route and email our ICPs &mdash; Apollo &rarr; HubSpot &rarr; Lemlist. A living onboarding guide.</p>
+      <p class="header-sub">How we source, qualify, route and email our ICPs — Apollo → HubSpot → Lemlist</p>
       <div class="header-meta">
-        <div class="meta-item"><div class="meta-dot" style="background:var(--apollo)"></div>Apollo &middot; source &amp; qualify</div>
-        <div class="meta-item"><div class="meta-dot" style="background:var(--hs)"></div>HubSpot &middot; route &amp; store</div>
-        <div class="meta-item"><div class="meta-dot" style="background:var(--sl)"></div>Lemlist &middot; email &amp; launch</div>
+        <div class="meta-item"><div class="meta-dot" style="background:var(--apollo)"></div>Apollo · source &amp; qualify</div>
+        <div class="meta-item"><div class="meta-dot" style="background:var(--hs)"></div>HubSpot · route &amp; store</div>
+        <div class="meta-item"><div class="meta-dot" style="background:var(--sl)"></div>Lemlist · email &amp; launch</div>
       </div>
     </div>
   </div>
@@ -264,9 +263,9 @@ body.editing .video-url-field { display: block; }
   <div class="progress-wrap">
     <div class="progress-top">
       <span class="progress-label">Your onboarding progress</span>
-      <span class="progress-count" id="progressCount">0 / 0</span>
+      <span class="progress-count" id="progressCount">0 / 25</span>
     </div>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width: 0%;"></div></div>
     <div style="text-align:right;margin-top:9px;"><button class="progress-reset" id="progressReset">Reset progress</button></div>
   </div>
 
@@ -281,38 +280,38 @@ body.editing .video-url-field { display: block; }
 
   <!-- ============ OVERVIEW ============ -->
   <div class="tab-panel active" id="panel-overview">
-    <p class="lede">Welcome. This playbook is your complete handover for running and automating the outbound sales pipeline. Start here to understand <strong>why</strong> the system exists and how the three tools connect, then use the tool tabs above for step-by-step video walkthroughs. Every step has a checklist that saves your progress automatically.</p>
+    <p class="lede">Welcome. This playbook is your complete handover for running and automating the outbound sales pipeline. Start here to understand <strong>why</strong> the system exists and how the three tools connect.</p>
 
     <div class="section-label">The big picture</div>
     <div class="context" style="margin-bottom:6px;">
-      <p>We run one repeatable pipeline for every <strong>ICP &times; country</strong> combination. Contacts are <strong>sourced and qualified in Apollo</strong>, <strong>routed and stored in HubSpot</strong>, then <strong>emailed from Lemlist</strong>. The goal is that once a combination is set up, it stays fresh on its own &mdash; new matching contacts flow in automatically, and outdated ones drop out.</p>
+      <p>We run one repeatable pipeline for every <strong>ICP × country</strong> combination. Contacts are <strong>sourced and qualified in Apollo</strong>, <strong>routed and stored in HubSpot</strong>, then <strong>emailed from Lemlist</strong>. New matching contacts flow in automatically in Hubspot, and outdated ones drop out.</p>
     </div>
 
     <div class="pipe-flow">
       <div class="pipe-node apollo">
         <div class="pipe-icon">A</div>
         <div>
-          <div class="pipe-title">1 &middot; Apollo — source &amp; qualify</div>
-          <div class="pipe-desc">Set persona filters per ICP + country, add matches to a dedicated list, then build a workflow so the list keeps itself up to date (adds new matches, removes contacts that no longer fit).</div>
-          <button class="pipe-jump" data-goto="apollo">Open Apollo steps &rarr;</button>
+          <div class="pipe-title">1 · Apollo — source &amp; qualify</div>
+          <div class="pipe-desc">Set persona filters per ICP + country, add matches to a dedicated list, then build a workflow so the list keeps itself up to date (adds new matches, removes contacts that no longer fit and pushes the updated contact list to Hubspot).</div>
+          <button class="pipe-jump" data-goto="apollo">Open Apollo steps →</button>
         </div>
       </div>
       <div class="pipe-connector"></div>
       <div class="pipe-node hs">
         <div class="pipe-icon">H</div>
         <div>
-          <div class="pipe-title">2 &middot; HubSpot — route &amp; store</div>
-          <div class="pipe-desc">Create a filtered, dynamic list per ICP + country and stamp the ICP type. When contacts are pushed from Apollo, anyone matching the criteria lands in the right list automatically.</div>
-          <button class="pipe-jump" data-goto="hubspot">Open HubSpot steps &rarr;</button>
+          <div class="pipe-title">2 · HubSpot — route &amp; store</div>
+          <div class="pipe-desc">Create a filtered, dynamic list per ICP + country. When contacts are pushed from Apollo, anyone matching the criteria lands in the right list automatically.</div>
+          <button class="pipe-jump" data-goto="hubspot">Open HubSpot steps →</button>
         </div>
       </div>
       <div class="pipe-connector"></div>
       <div class="pipe-node sl">
         <div class="pipe-icon">L</div>
         <div>
-          <div class="pipe-title">3 &middot; Lemlist — email &amp; launch</div>
-          <div class="pipe-desc">Build a campaign with the email sequence written for that ICP, import the matching HubSpot list, and launch according to the sending criteria.</div>
-          <button class="pipe-jump" data-goto="lemlist">Open Lemlist steps &rarr;</button>
+          <div class="pipe-title">3 · Lemlist — email &amp; launch</div>
+          <div class="pipe-desc">Build a campaign with the email sequence written for that ICP, import the matching HubSpot list manually, and launch according to the sending criteria.</div>
+          <button class="pipe-jump" data-goto="lemlist">Open Lemlist steps →</button>
         </div>
       </div>
     </div>
@@ -322,7 +321,7 @@ body.editing .video-url-field { display: block; }
 
     <!-- ICPs -->
     <div class="section-label">Our ICPs</div>
-    <p class="lede">An <strong>ICP (Ideal Customer Profile)</strong> is a defined type of firm/person we target. Each ICP has its own Apollo persona, its own AI qualification filter, its own HubSpot list, and its own Lemlist email copy &mdash; they are never mixed. Click one to see how we define it.</p>
+    <p class="lede">An <strong>ICP (Ideal Customer Profile)</strong> is a defined type of lead we target. Each ICP has its own Apollo persona, its own HubSpot list, and its own Lemlist email copy</p>
     <div class="icp-grid" id="icpGrid">
       <button class="icp-chip active" data-icp="pe"><span class="icp-dot" style="background:var(--green)"></span>Private Equity</button>
       <button class="icp-chip" data-icp="ma"><span class="icp-dot" style="background:var(--primary)"></span>M&amp;A Boutiques</button>
@@ -343,18 +342,18 @@ body.editing .video-url-field { display: block; }
       </div>
     </div>
     <div class="icp-panel" data-icp-panel="ma">
-      <h4>M&amp;A Boutiques</h4>
-      <p>Specialist M&amp;A advisory firms &mdash; not the Big Four, not investment banks. We want people doing deal execution, origination and transaction advisory.</p>
+      <h4>Mergers &amp; Acquisitions (M&amp;A)</h4>
+      <p>Specialist M&amp;A advisory firms. We want contacts doing deal execution, origination and transaction advisory.</p>
       <div class="def-row">
         <div class="def-k">Qualifies</div><div class="def-v">Specialist M&amp;A advisory firm; role involves deal execution, origination or transaction advisory.</div>
         <div class="def-k">Excludes</div><div class="def-v">Large investment banks, Big Four, general management consultants, PE or VC funds; operational/admin roles.</div>
         <div class="def-k">HubSpot ICP</div><div class="def-v"><code>M&amp;A</code></div>
-        <div class="def-k">Apollo list</div><div class="def-v"><code>Segment for targeted outreach MA [Country]</code></div>
+        <div class="def-k">Apollo list</div><div class="def-v"><code>Segment for targeted outreach M&amp;A [Country]</code></div>
       </div>
     </div>
     <div class="icp-panel" data-icp-panel="vc">
-      <h4>VC Firms</h4>
-      <p>Dedicated venture capital funds that raise LP capital to invest in startups. We want people with an investment mandate.</p>
+      <h4>Venture Capital</h4>
+      <p>Dedicated venture capital funds.&nbsp;</p>
       <div class="def-row">
         <div class="def-k">Qualifies</div><div class="def-v">Dedicated VC fund; role involves sourcing, portfolio management or investment decisions.</div>
         <div class="def-k">Excludes</div><div class="def-v">Corporate VC arms, PE funds, accelerators, incubators, angel networks; operational/admin roles.</div>
@@ -364,22 +363,22 @@ body.editing .video-url-field { display: block; }
     </div>
     <div class="icp-panel" data-icp-panel="cma">
       <h4>Corporate M&amp;A Teams</h4>
-      <p>In-house corporate development / M&amp;A teams inside large operating companies that acquire other businesses. We want the people with a direct acquisitions mandate, not general finance or strategy.</p>
+      <p>In-house corporate development / M&amp;A teams inside large operating companies that acquire other businesses. We want the people with a direct acquisitions mandate.</p>
       <div class="def-row">
         <div class="def-k">Qualifies</div><div class="def-v">Contact works in a corporate development or in-house M&amp;A team at a large corporate, with a role directly involved in acquisitions, strategic partnerships, or target screening.</div>
         <div class="def-k">Excludes</div><div class="def-v">Role is in finance, accounting, or general strategy without a clear M&amp;A mandate. Employer is an advisory firm, PE, or VC rather than an operating company.</div>
         <div class="def-k">Company size</div><div class="def-v">200+ employees (large corporate)</div>
         <div class="def-k">HubSpot ICP</div><div class="def-v"><code>Corp M&amp;A</code></div>
-        <div class="def-k">Apollo list</div><div class="def-v"><code>Segment for targeted outreach CorpMA [Country]</code></div>
+        <div class="def-k">Apollo list</div><div class="def-v"><code>Segment for targeted outreach CMA [Country]</code></div>
       </div>
     </div>
     <div class="icp-panel" data-icp-panel="cvc">
       <h4>Corporate VC Teams</h4>
-      <p>Corporate venture arms that invest the parent company's balance sheet into startups. We want people with a genuine investment mandate inside the corporate, not independent VCs.</p>
+      <p>Corporate venture arms that invest the parent company's balance sheet into startups. We want contacts with a genuine investment mandate inside the corporate.</p>
       <div class="def-row">
         <div class="def-k">Qualifies</div><div class="def-v">Employer is a named CVC arm of a large corporate and the contact's role involves startup scouting, portfolio oversight, or investment decision-making.</div>
         <div class="def-k">Excludes</div><div class="def-v">Employer is an independent VC, PE fund, or advisory firm. Role is operational, finance, or R&amp;D without an investment mandate.</div>
-        <div class="def-k">Company size</div><div class="def-v">5–50 employees (CVC team size)</div>
+        <div class="def-k">Company size</div><div class="def-v">&gt;200 employees&nbsp;</div>
         <div class="def-k">HubSpot ICP</div><div class="def-v"><code>Corp VC</code></div>
         <div class="def-k">Apollo list</div><div class="def-v"><code>Segment for targeted outreach CVC [Country]</code></div>
       </div>
@@ -391,18 +390,17 @@ body.editing .video-url-field { display: block; }
         <div class="def-k">Qualifies</div><div class="def-v"><em>Not yet launched — fill in from the Apollo persona + AI filter once the Search Fund campaign is set up.</em></div>
         <div class="def-k">Excludes</div><div class="def-v"><em>Not yet launched — fill in when ready.</em></div>
         <div class="def-k">HubSpot ICP</div><div class="def-v"><code>Search Fund</code></div>
-        <div class="def-k">Apollo list</div><div class="def-v"><code>Segment for targeted outreach SearchFund [Country]</code></div>
+        <div class="def-k">Apollo list</div><div class="def-v"><code>Segment for targeted outreach SF [Country]</code></div>
       </div>
     </div>
 
     <!-- Countries -->
     <div class="section-label">Target countries</div>
-    <p class="lede">Every ICP is run <strong>separately per country group</strong> &mdash; its own Apollo list, its own HubSpot list, and its own Lemlist campaign. This keeps sending volumes, language and localisation clean. These are the 12 groups currently tracked in the campaign dashboards; some are single countries and some are regional clusters.</p>
+    <p class="lede">Every ICP is run <strong>separately per country group</strong> — its own Apollo list, its own HubSpot list, and its own Lemlist campaign. This keeps sending volumes, language and localisation clean. These are the 12 groups currently tracked in the campaign dashboards; some are single countries and some are regional clusters.</p>
     <div class="country-grid">
       <div class="country-card"><div class="country-name">Spain</div><div class="country-note">Single market</div></div>
       <div class="country-card"><div class="country-name">Italy</div><div class="country-note">Single market</div></div>
       <div class="country-card"><div class="country-name">France</div><div class="country-note">Single market</div></div>
-      <div class="country-card"><div class="country-name">Germany</div><div class="country-note">Single market</div></div>
       <div class="country-card"><div class="country-name">Portugal</div><div class="country-note">Single market</div></div>
       <div class="country-card"><div class="country-name">Greece</div><div class="country-note">Single market</div></div>
       <div class="country-card"><div class="country-name">UK</div><div class="country-note">Single market</div></div>
@@ -439,7 +437,7 @@ body.editing .video-url-field { display: block; }
       <div class="tool-intro-icon">A</div>
       <div>
         <div class="tool-intro-title">Apollo — source &amp; qualify contacts</div>
-        <div class="tool-intro-sub">Apollo is where leads enter the pipeline. You define who we want (persona filters), add them to a dedicated ICP &times; country list, and set up a workflow so the list maintains itself. Contacts are AI-qualified and stamped with an ICP before they ever reach HubSpot.</div>
+        <div class="tool-intro-sub">Apollo is where leads enter the pipeline. You define who we want (persona filters), add them to a dedicated ICP × country list, and set up a workflow so the list maintains itself. Contacts are AI-qualified and stamped with an ICP before they ever reach HubSpot.</div>
       </div>
     </div>
 
@@ -452,7 +450,7 @@ body.editing .video-url-field { display: block; }
           <div class="step-title">Select the persona filters for this ICP + country</div>
         </div>
         <span class="step-done-pill">Done</span>
-        <span class="step-chevron">&#9654;</span>
+        <span class="step-chevron">▶</span>
       </div>
       <div class="step-body">
         <div class="block-label">What &amp; why</div>
@@ -472,10 +470,10 @@ body.editing .video-url-field { display: block; }
         </div>
         <div class="block-label">Checklist</div>
         <div class="checklist" data-step="apollo-1">
-          <label class="check-item"><input type="checkbox"><span class="check-label">Opened the correct ICP persona (not reused from another ICP)</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Confirmed management level, keywords, exclude-lists and company size are active</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Added the target country filter</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Set "verified email only"</span></label>
+          <label class="check-item"><input type="checkbox" data-id="apollo-1:0"><span class="check-label">Opened the correct ICP persona (not reused from another ICP)</span></label>
+          <label class="check-item"><input type="checkbox" data-id="apollo-1:1"><span class="check-label">Confirmed management level, keywords, exclude-lists and company size are active</span></label>
+          <label class="check-item"><input type="checkbox" data-id="apollo-1:2"><span class="check-label">Added the target country filter</span></label>
+          <label class="check-item"><input type="checkbox" data-id="apollo-1:3"><span class="check-label">Set "verified email only"</span></label>
         </div>
       </div>
     </div>
@@ -489,7 +487,7 @@ body.editing .video-url-field { display: block; }
           <div class="step-title">Create the list &amp; add matching contacts</div>
         </div>
         <span class="step-done-pill">Done</span>
-        <span class="step-chevron">&#9654;</span>
+        <span class="step-chevron">▶</span>
       </div>
       <div class="step-body">
         <div class="block-label">What &amp; why</div>
@@ -504,9 +502,9 @@ body.editing .video-url-field { display: block; }
         <div class="tag-row"><span class="tag apollo"><code>Segment for targeted outreach PE Netherlands</code></span></div>
         <div class="block-label">Checklist</div>
         <div class="checklist" data-step="apollo-2">
-          <label class="check-item"><input type="checkbox"><span class="check-label">Created a NEW empty list (did not duplicate)</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Named it with the ICP + country convention</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Added the filtered, verified contacts to the list</span></label>
+          <label class="check-item"><input type="checkbox" data-id="apollo-2:0"><span class="check-label">Created a NEW empty list (did not duplicate)</span></label>
+          <label class="check-item"><input type="checkbox" data-id="apollo-2:1"><span class="check-label">Named it with the ICP + country convention</span></label>
+          <label class="check-item"><input type="checkbox" data-id="apollo-2:2"><span class="check-label">Added the filtered, verified contacts to the list</span></label>
         </div>
       </div>
     </div>
@@ -520,7 +518,7 @@ body.editing .video-url-field { display: block; }
           <div class="step-title">Build the auto-update workflow + AI qualification</div>
         </div>
         <span class="step-done-pill">Done</span>
-        <span class="step-chevron">&#9654;</span>
+        <span class="step-chevron">▶</span>
       </div>
       <div class="step-body">
         <div class="block-label">What &amp; why</div>
@@ -538,11 +536,11 @@ body.editing .video-url-field { display: block; }
         </div>
         <div class="block-label">Checklist</div>
         <div class="checklist" data-step="apollo-3">
-          <label class="check-item"><input type="checkbox"><span class="check-label">Created a workflow triggered by persona + country + verified email</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Added the ICP's AI filter as a workflow step</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Set the ICP field only for in-list + Qualified contacts</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Confirmed plan limits / batching</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Duplicated the workflow for each additional country</span></label>
+          <label class="check-item"><input type="checkbox" data-id="apollo-3:0"><span class="check-label">Created a workflow triggered by persona + country + verified email</span></label>
+          <label class="check-item"><input type="checkbox" data-id="apollo-3:1"><span class="check-label">Added the ICP's AI filter as a workflow step</span></label>
+          <label class="check-item"><input type="checkbox" data-id="apollo-3:2"><span class="check-label">Set the ICP field only for in-list + Qualified contacts</span></label>
+          <label class="check-item"><input type="checkbox" data-id="apollo-3:3"><span class="check-label">Confirmed plan limits / batching</span></label>
+          <label class="check-item"><input type="checkbox" data-id="apollo-3:4"><span class="check-label">Duplicated the workflow for each additional country</span></label>
         </div>
       </div>
     </div>
@@ -554,7 +552,7 @@ body.editing .video-url-field { display: block; }
       <div class="tool-intro-icon">H</div>
       <div>
         <div class="tool-intro-title">HubSpot — route &amp; store contacts</div>
-        <div class="tool-intro-sub">HubSpot is the CRM of record. You build one dynamic list per ICP &times; country with the right filters, then push qualified contacts from Apollo. Because the lists are dynamic, matching contacts route themselves into the correct list with no manual sorting.</div>
+        <div class="tool-intro-sub">HubSpot is the CRM of record. You build one dynamic list per ICP × country with the right filters, then push qualified contacts from Apollo. Because the lists are dynamic, matching contacts route themselves into the correct list with no manual sorting.</div>
       </div>
     </div>
 
@@ -567,7 +565,7 @@ body.editing .video-url-field { display: block; }
           <div class="step-title">Create the ICP + country list with filters</div>
         </div>
         <span class="step-done-pill">Done</span>
-        <span class="step-chevron">&#9654;</span>
+        <span class="step-chevron">▶</span>
       </div>
       <div class="step-body">
         <div class="block-label">What &amp; why</div>
@@ -586,9 +584,9 @@ body.editing .video-url-field { display: block; }
         </div>
         <div class="block-label">Checklist</div>
         <div class="checklist" data-step="hubspot-1">
-          <label class="check-item"><input type="checkbox"><span class="check-label">Created / duplicated the list for this ICP + country</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Updated only the country condition</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Confirmed the list is Active (dynamic), not Static</span></label>
+          <label class="check-item"><input type="checkbox" data-id="hubspot-1:0"><span class="check-label">Created / duplicated the list for this ICP + country</span></label>
+          <label class="check-item"><input type="checkbox" data-id="hubspot-1:1"><span class="check-label">Updated only the country condition</span></label>
+          <label class="check-item"><input type="checkbox" data-id="hubspot-1:2"><span class="check-label">Confirmed the list is Active (dynamic), not Static</span></label>
         </div>
       </div>
     </div>
@@ -602,7 +600,7 @@ body.editing .video-url-field { display: block; }
           <div class="step-title">Set the ICP type &amp; push contacts from Apollo</div>
         </div>
         <span class="step-done-pill">Done</span>
-        <span class="step-chevron">&#9654;</span>
+        <span class="step-chevron">▶</span>
       </div>
       <div class="step-body">
         <div class="block-label">What &amp; why</div>
@@ -620,9 +618,9 @@ body.editing .video-url-field { display: block; }
         </div>
         <div class="block-label">Checklist</div>
         <div class="checklist" data-step="hubspot-2">
-          <label class="check-item"><input type="checkbox"><span class="check-label">Confirmed the ICP type is set correctly on the list</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Filtered Apollo for ICP = this ICP and pushed to HubSpot</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Verified contacts appear in the correct dynamic list</span></label>
+          <label class="check-item"><input type="checkbox" data-id="hubspot-2:0"><span class="check-label">Confirmed the ICP type is set correctly on the list</span></label>
+          <label class="check-item"><input type="checkbox" data-id="hubspot-2:1"><span class="check-label">Filtered Apollo for ICP = this ICP and pushed to HubSpot</span></label>
+          <label class="check-item"><input type="checkbox" data-id="hubspot-2:2"><span class="check-label">Verified contacts appear in the correct dynamic list</span></label>
         </div>
       </div>
     </div>
@@ -647,7 +645,7 @@ body.editing .video-url-field { display: block; }
           <div class="step-title">Set up the campaign &amp; email sequence for the ICP</div>
         </div>
         <span class="step-done-pill">Done</span>
-        <span class="step-chevron">&#9654;</span>
+        <span class="step-chevron">▶</span>
       </div>
       <div class="step-body">
         <div class="block-label">What &amp; why</div>
@@ -661,9 +659,9 @@ body.editing .video-url-field { display: block; }
         <div class="callout info"><span class="callout-tag">Naming</span><span>Name the campaign for the ICP + country so it's obvious which HubSpot list feeds it.</span></div>
         <div class="block-label">Checklist</div>
         <div class="checklist" data-step="lemlist-1">
-          <label class="check-item"><input type="checkbox"><span class="check-label">Created a new campaign named for the ICP + country</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Built the sequence with the ICP's email copy</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Set step delays and personalisation variables</span></label>
+          <label class="check-item"><input type="checkbox" data-id="lemlist-1:0"><span class="check-label">Created a new campaign named for the ICP + country</span></label>
+          <label class="check-item"><input type="checkbox" data-id="lemlist-1:1"><span class="check-label">Built the sequence with the ICP's email copy</span></label>
+          <label class="check-item"><input type="checkbox" data-id="lemlist-1:2"><span class="check-label">Set step delays and personalisation variables</span></label>
         </div>
       </div>
     </div>
@@ -677,7 +675,7 @@ body.editing .video-url-field { display: block; }
           <div class="step-title">Import the HubSpot list &amp; launch by criteria</div>
         </div>
         <span class="step-done-pill">Done</span>
-        <span class="step-chevron">&#9654;</span>
+        <span class="step-chevron">▶</span>
       </div>
       <div class="step-body">
         <div class="block-label">What &amp; why</div>
@@ -696,10 +694,10 @@ body.editing .video-url-field { display: block; }
         </div>
         <div class="block-label">Checklist</div>
         <div class="checklist" data-step="lemlist-2">
-          <label class="check-item"><input type="checkbox"><span class="check-label">Imported the correct HubSpot ICP + country list</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Mapped all fields (incl. Country)</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Enabled "skip contacts in other campaigns"</span></label>
-          <label class="check-item"><input type="checkbox"><span class="check-label">Selected sending accounts and launched within sending caps</span></label>
+          <label class="check-item"><input type="checkbox" data-id="lemlist-2:0"><span class="check-label">Imported the correct HubSpot ICP + country list</span></label>
+          <label class="check-item"><input type="checkbox" data-id="lemlist-2:1"><span class="check-label">Mapped all fields (incl. Country)</span></label>
+          <label class="check-item"><input type="checkbox" data-id="lemlist-2:2"><span class="check-label">Enabled "skip contacts in other campaigns"</span></label>
+          <label class="check-item"><input type="checkbox" data-id="lemlist-2:3"><span class="check-label">Selected sending accounts and launched within sending caps</span></label>
         </div>
       </div>
     </div>
@@ -714,27 +712,27 @@ body.editing .video-url-field { display: block; }
     <div class="section-label">Frequently asked</div>
 
     <div class="faq-item">
-      <div class="faq-q"><span><span class="faq-tag gen">General</span>Do I run one pipeline for everything, or one per ICP and country?</span><span class="fchev">&#9654;</span></div>
-      <div class="faq-a">One full pipeline per <strong>ICP &times; country</strong> combination. Each has its own Apollo list + workflow, its own HubSpot dynamic list, and its own Lemlist campaign. They are never merged — this keeps qualification, copy and sending volumes clean.</div>
+      <div class="faq-q"><span><span class="faq-tag gen">General</span>Do I run one pipeline for everything, or one per ICP and country?</span><span class="fchev">▶</span></div>
+      <div class="faq-a">One full pipeline per <strong>ICP × country</strong> combination. Each has its own Apollo list + workflow, its own HubSpot dynamic list, and its own Lemlist campaign. They are never merged — this keeps qualification, copy and sending volumes clean.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q"><span><span class="faq-tag apollo">Apollo</span>Why can't I just duplicate an existing list to make a new one?</span><span class="fchev">&#9654;</span></div>
+      <div class="faq-q"><span><span class="faq-tag apollo">Apollo</span>Why can't I just duplicate an existing list to make a new one?</span><span class="fchev">▶</span></div>
       <div class="faq-a">Duplicating a list in Apollo also copies all of its current contacts, which creates deduplication problems downstream. Always create a fresh, empty list and let the workflow populate it.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q"><span><span class="faq-tag apollo">Apollo</span>My AI filter / workflow stopped adding contacts. Why?</span><span class="fchev">&#9654;</span></div>
+      <div class="faq-q"><span><span class="faq-tag apollo">Apollo</span>My AI filter / workflow stopped adding contacts. Why?</span><span class="fchev">▶</span></div>
       <div class="faq-a">Most often it's the <strong>Apollo plan limit</strong>. Bulk AI research and auto-add are capped by plan (Basic ≈ 100/day). Check remaining credits/limits, or run in batches of 100.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q"><span><span class="faq-tag hs">HubSpot</span>A contact isn't showing up in the list I expected.</span><span class="fchev">&#9654;</span></div>
+      <div class="faq-q"><span><span class="faq-tag hs">HubSpot</span>A contact isn't showing up in the list I expected.</span><span class="fchev">▶</span></div>
       <div class="faq-a">Check two things: (1) the list is <strong>Active / dynamic</strong>, not Static; (2) the contact's <strong>ICP</strong> and <strong>Country</strong> properties actually match the list filters. Those properties flow from Apollo, so fix them upstream if they're wrong.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q"><span><span class="faq-tag sl">Lemlist</span>My email variables (name, company) are showing up blank.</span><span class="fchev">&#9654;</span></div>
+      <div class="faq-q"><span><span class="faq-tag sl">Lemlist</span>My email variables (name, company) are showing up blank.</span><span class="fchev">▶</span></div>
       <div class="faq-a">The field wasn't mapped on import. Re-check the field mapping step — every variable used in the copy must map to a HubSpot field, including Country.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q"><span><span class="faq-tag sl">Lemlist</span>How do I make sure someone isn't emailed by two campaigns at once?</span><span class="fchev">&#9654;</span></div>
+      <div class="faq-q"><span><span class="faq-tag sl">Lemlist</span>How do I make sure someone isn't emailed by two campaigns at once?</span><span class="fchev">▶</span></div>
       <div class="faq-a">Turn on <strong>"skip contacts already in another campaign"</strong> during import. This prevents double-enrolment.</div>
     </div>
 
@@ -772,12 +770,7 @@ body.editing .video-url-field { display: block; }
 
 </div>
 
-<div class="edit-toolbar" id="editToolbar">
-  <span class="et-label">Edit mode</span>
-  <span class="et-hint">Click any text to edit · paste video links under each step</span>
-  <button class="et-save" id="editSave">Download updated file</button>
-  <button class="et-exit" id="editExit">Exit</button>
-</div>
+
 
 <script>
 /* ============================================================
@@ -1069,5 +1062,6 @@ document.getElementById('editSave').addEventListener('click', function () {
   if (h && document.getElementById('panel-' + h)) activateTab(h);
 })();
 </script>
-</body>
-</html>
+
+
+</body></html>
