@@ -142,6 +142,24 @@ a { color: var(--primary); }
 .tag.apollo { background: var(--apollo-bg); color: var(--apollo); border-color: var(--apollo-border); }
 .tag.hs { background: var(--hs-bg); color: var(--hs); border-color: var(--hs-border); }
 .tag.sl { background: var(--sl-bg); color: var(--sl); border-color: var(--sl-border); }
+/* Persona reference */
+.persona-ref { margin-bottom: 16px; }
+.persona-ref > summary { list-style: none; cursor: pointer; padding: 15px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: var(--text); }
+.persona-ref > summary::-webkit-details-marker { display: none; }
+.persona-ref > summary .pr-chev { color: var(--text-3); font-size: 11px; transition: transform .2s; }
+.persona-ref[open] > summary .pr-chev { transform: rotate(90deg); }
+.persona-ref > summary .pr-sub { font-size: 12px; font-weight: 400; color: var(--text-3); margin-left: auto; }
+.persona-stack { margin-top: 12px; display: flex; flex-direction: column; gap: 12px; }
+.persona-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); overflow: hidden; }
+.persona-head { display: flex; align-items: center; gap: 10px; padding: 13px 18px; border-bottom: 1px solid var(--border); }
+.persona-head .ph-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.persona-head .ph-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.persona-head .ph-code { font-size: 11px; color: var(--text-3); font-family: var(--mono); margin-left: auto; }
+.pf-row { display: grid; grid-template-columns: 130px 1fr; gap: 10px; padding: 11px 18px; border-bottom: 1px solid var(--border); }
+.pf-row:last-child { border-bottom: none; }
+.pf-label { font-size: 11px; font-weight: 600; color: var(--text-3); letter-spacing: .04em; text-transform: uppercase; padding-top: 3px; }
+.pf-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+@media (max-width: 560px) { .pf-row { grid-template-columns: 1fr; gap: 5px; } }
 code { font-family: var(--mono); font-size: 11.5px; background: var(--surface-3); padding: 1px 6px; border-radius: 5px; border: 1px solid var(--border); color: var(--text); }
 strong { color: var(--text); font-weight: 600; }
 em { font-style: italic; }
@@ -240,6 +258,14 @@ body.editing .video-url-field { display: block; }
 .video-url-field label { font-size: 10px; font-weight: 700; letter-spacing:.06em; text-transform:uppercase; color: var(--primary); display:block; margin-bottom:4px; }
 .video-url-field input { width: 100%; font-family: var(--mono); font-size: 12px; padding: 8px 10px; border: 1px solid var(--primary-border); border-radius: 8px; background: var(--primary-bg); color: var(--text); }
 .video-url-field input:focus { outline: none; border-color: var(--primary); }
+.et-saved { font-size: 11px; color: #4ade80; opacity: 0; transition: opacity .2s; }
+.et-saved.show { opacity: 1; }
+.draft-banner { display:none; align-items:center; gap:12px; padding:12px 16px; background: var(--amber-bg); border:1px solid var(--amber-border); color:#8a5108; border-radius: var(--r-sm); margin-bottom:20px; font-size:13px; line-height:1.5; }
+.draft-banner.show { display:flex; }
+.draft-banner .db-text { flex:1; }
+.draft-banner button { font-family:inherit; font-size:12px; font-weight:600; border:none; border-radius:8px; padding:8px 13px; cursor:pointer; white-space:nowrap; }
+.draft-restore { background: var(--primary); color:#fff; }
+.draft-discard { background: rgba(0,0,0,.09); color:#8a5108; }
 </style>
 </head>
 <body class="">
@@ -257,6 +283,13 @@ body.editing .video-url-field { display: block; }
         <div class="meta-item"><div class="meta-dot" style="background:var(--sl)"></div>Lemlist · email &amp; launch</div>
       </div>
     </div>
+  </div>
+
+  <!-- Unsaved-edits restore banner -->
+  <div class="draft-banner" id="draftBanner">
+    <span class="db-text"><strong>You have unsaved edits</strong> saved in this browser from an earlier session. They are not published yet.</span>
+    <button class="draft-restore" id="draftRestore">Restore my edits</button>
+    <button class="draft-discard" id="draftDiscard">Discard</button>
   </div>
 
   <!-- Progress -->
@@ -286,6 +319,8 @@ body.editing .video-url-field { display: block; }
     <div class="context" style="margin-bottom:6px;">
       <p>We run one repeatable pipeline for every <strong>ICP × country</strong> combination. Contacts are <strong>sourced and qualified in Apollo</strong>, <strong>routed and stored in HubSpot</strong>, then <strong>emailed from Lemlist</strong>. New matching contacts flow in automatically in Hubspot, and outdated ones drop out.</p>
     </div>
+
+    <div class="callout danger"><span class="callout-tag">Excluded</span><span><strong>Benelux and DACH are off-limits for any cold outreach.</strong> Because of our cooperation with Dealsuite, we never cold-email the Benelux (Belgium, Netherlands, Luxembourg) or DACH (Germany, Austria, Switzerland) regions. Do not create Apollo lists, HubSpot lists or Lemlist campaigns for these countries under any ICP.</span></div>
 
     <div class="pipe-flow">
       <div class="pipe-node apollo">
@@ -396,7 +431,7 @@ body.editing .video-url-field { display: block; }
 
     <!-- Countries -->
     <div class="section-label">Target countries</div>
-    <p class="lede">Every ICP is run <strong>separately per country group</strong> — its own Apollo list, its own HubSpot list, and its own Lemlist campaign. This keeps sending volumes, language and localisation clean. These are the 12 groups currently tracked in the campaign dashboards; some are single countries and some are regional clusters.</p>
+    <p class="lede">Every ICP is run <strong>separately per country group</strong> — its own Apollo list, its own HubSpot list, and its own Lemlist campaign. This keeps sending volumes, language and localisation clean. These are the groups currently tracked in the campaign dashboards; some are single countries and some are regional clusters. <strong>Benelux and DACH are deliberately absent</strong> — they are excluded from cold outreach (see the note at the top of this page).</p>
     <div class="country-grid">
       <div class="country-card"><div class="country-name">Spain</div><div class="country-note">Single market</div></div>
       <div class="country-card"><div class="country-name">Italy</div><div class="country-note">Single market</div></div>
@@ -405,10 +440,10 @@ body.editing .video-url-field { display: block; }
       <div class="country-card"><div class="country-name">Greece</div><div class="country-note">Single market</div></div>
       <div class="country-card"><div class="country-name">UK</div><div class="country-note">Single market</div></div>
       <div class="country-card"><div class="country-name">Ireland</div><div class="country-note">Single market</div></div>
-      <div class="country-card"><div class="country-name">CEE</div><div class="country-note">Central &amp; Eastern Europe cluster</div></div>
-      <div class="country-card"><div class="country-name">Balkans</div><div class="country-note">Regional cluster</div></div>
+      <div class="country-card"><div class="country-name">CEE</div><div class="country-note">Poland, Czech Republic, Hungary</div></div>
+      <div class="country-card"><div class="country-name">Balkans</div><div class="country-note">Croatia, Slovenia, Bosnia &amp; Herzegovina, Serbia, Romania, Bulgaria</div></div>
       <div class="country-card"><div class="country-name">Baltics</div><div class="country-note">Estonia, Latvia, Lithuania</div></div>
-      <div class="country-card"><div class="country-name">Nordics</div><div class="country-note">Regional cluster</div></div>
+      <div class="country-card"><div class="country-name">Nordics</div><div class="country-note">Norway, Denmark, Finland, Sweden</div></div>
     </div>
 
     <details class="maint-note">
@@ -440,6 +475,68 @@ body.editing .video-url-field { display: block; }
         <div class="tool-intro-sub">Apollo is where leads enter the pipeline. You define who we want (persona filters), add them to a dedicated ICP × country list, and set up a workflow so the list maintains itself. Contacts are AI-qualified and stamped with an ICP before they ever reach HubSpot.</div>
       </div>
     </div>
+
+    <!-- Persona filter reference -->
+    <details class="persona-ref">
+      <summary><span class="pr-chev">&#9654;</span> Persona filter reference <span class="pr-sub">the exact Apollo persona setup per ICP</span></summary>
+      <div class="persona-stack">
+
+        <div class="persona-card">
+          <div class="persona-head"><span class="ph-dot" style="background:var(--green)"></span><span class="ph-name">Private Equity</span><span class="ph-code">persona: Private Equity</span></div>
+          <div class="pf-row"><div class="pf-label">Management level</div><div class="pf-tags"><span class="tag apollo">Partner</span><span class="tag apollo">VP</span><span class="tag apollo">Head</span><span class="tag apollo">Director</span><span class="tag apollo">Manager</span><span class="tag apollo">Senior</span><span class="tag apollo">Entry</span><span class="tag apollo">C-suite</span><span class="tag apollo">Founder</span><span class="tag apollo">Owner</span></div></div>
+          <div class="pf-row"><div class="pf-label">Exclude titles</div><div class="pf-tags"><span class="tag red">teacher</span><span class="tag red">student</span><span class="tag red">software engineer</span><span class="tag red">professor</span><span class="tag red">administrative assistant</span></div></div>
+          <div class="pf-row"><div class="pf-label">Keywords — any of</div><div class="pf-tags"><span class="tag green">"private equity"</span><span class="tag green">"buy out"</span><span class="tag green">"growth capital"</span><span class="tag green">PE</span><span class="tag green">pe</span><span class="tag green">buyout</span></div></div>
+          <div class="pf-row"><div class="pf-label">Exclude keywords</div><div class="pf-tags"><span class="tag red">"venture capital"</span><span class="tag red">"ventures"</span><span class="tag red">"corporate finance"</span><span class="tag red">"school"</span><span class="tag red">"university"</span><span class="tag red">"executive search"</span><span class="tag red">real estate</span><span class="tag red">m&amp;a advisory</span></div></div>
+          <div class="pf-row"><div class="pf-label">Company size</div><div class="pf-tags"><span class="tag">1&ndash;10</span><span class="tag">11&ndash;20</span><span class="tag">21&ndash;50</span></div></div>
+        </div>
+
+        <div class="persona-card">
+          <div class="persona-head"><span class="ph-dot" style="background:var(--primary)"></span><span class="ph-name">M&amp;A Boutiques</span><span class="ph-code">persona: M&amp;A</span></div>
+          <div class="pf-row"><div class="pf-label">Management level</div><div class="pf-tags"><span class="tag apollo">Owner</span><span class="tag apollo">Founder</span><span class="tag apollo">C-suite</span><span class="tag apollo">Partner</span><span class="tag apollo">VP</span><span class="tag apollo">Head</span><span class="tag apollo">Director</span><span class="tag apollo">Manager</span><span class="tag apollo">Senior</span><span class="tag apollo">Entry</span></div></div>
+          <div class="pf-row"><div class="pf-label">Exclude titles</div><div class="pf-tags"><span class="tag red">Recruiter</span><span class="tag red">talent acquisition</span><span class="tag red">marketing manager</span><span class="tag red">IT</span><span class="tag red">operations manager</span><span class="tag red">Venture Capital</span></div></div>
+          <div class="pf-row"><div class="pf-label">Keywords — any of</div><div class="pf-tags"><span class="tag green">M&amp;A</span><span class="tag green">mergers &amp; acquisitions</span><span class="tag green">corporate finance</span><span class="tag green">deal advisory</span><span class="tag green">transaction advisory</span><span class="tag green">acquisition</span><span class="tag green">investment banking</span><span class="tag green">IB</span><span class="tag green">investment fund</span><span class="tag green">ma</span><span class="tag green">m&amp;a advisory</span></div></div>
+          <div class="pf-row"><div class="pf-label">Exclude keywords</div><div class="pf-tags"><span class="tag red">real estate</span><span class="tag red">legal</span><span class="tag red">management consulting</span><span class="tag red">legal service</span><span class="tag red">law</span><span class="tag red">accounting</span><span class="tag red">search fund</span><span class="tag red">asset managment</span><span class="tag red">ventures</span><span class="tag red">venture investments</span><span class="tag red">broking</span><span class="tag red">crowdfunding</span></div></div>
+          <div class="pf-row"><div class="pf-label">Industry</div><div class="pf-tags"><span class="tag apollo">investment banking</span></div></div>
+          <div class="pf-row"><div class="pf-label">Company size</div><div class="pf-tags"><span class="tag">1&ndash;10</span><span class="tag">11&ndash;20</span><span class="tag">21&ndash;50</span><span class="tag">51&ndash;100</span></div></div>
+        </div>
+
+        <div class="persona-card">
+          <div class="persona-head"><span class="ph-dot" style="background:#8b5cf6"></span><span class="ph-name">Corporate M&amp;A</span><span class="ph-code">persona: CMA</span></div>
+          <div class="pf-row"><div class="pf-label">Include titles</div><div class="pf-tags"><span class="tag green">mergers and acquisitions</span><span class="tag green">M&amp;A</span><span class="tag green">corporate strategy</span></div></div>
+          <div class="pf-row"><div class="pf-label">Department</div><div class="pf-tags"><span class="tag apollo">mergers acquisitions</span></div></div>
+          <div class="pf-row"><div class="pf-label">Management level</div><div class="pf-tags"><span class="tag apollo">Owner</span><span class="tag apollo">Founder</span><span class="tag apollo">C-suite</span><span class="tag apollo">Partner</span><span class="tag apollo">VP</span><span class="tag apollo">Head</span><span class="tag apollo">Director</span><span class="tag apollo">Manager</span><span class="tag apollo">Senior</span><span class="tag apollo">Entry</span></div></div>
+          <div class="pf-row"><div class="pf-label">Exclude keywords</div><div class="pf-tags"><span class="tag red">law</span></div></div>
+          <div class="pf-row"><div class="pf-label">Company size</div><div class="pf-tags"><span class="tag">201&ndash;500</span><span class="tag">501&ndash;1,000</span><span class="tag">1,001&ndash;2,000</span><span class="tag">2,001&ndash;5,000</span></div></div>
+        </div>
+
+        <div class="persona-card">
+          <div class="persona-head"><span class="ph-dot" style="background:var(--amber)"></span><span class="ph-name">Corporate VC</span><span class="ph-code">persona: CVC</span></div>
+          <div class="pf-row"><div class="pf-label">Include titles</div><div class="pf-tags"><span class="tag green">Ventures</span><span class="tag green">venturing</span><span class="tag green">CVC</span></div></div>
+          <div class="pf-row"><div class="pf-label">Management level</div><div class="pf-tags"><span class="tag apollo">Founder</span><span class="tag apollo">Partner</span><span class="tag apollo">VP</span><span class="tag apollo">Head</span><span class="tag apollo">Director</span><span class="tag apollo">Manager</span><span class="tag apollo">Senior</span></div></div>
+          <div class="pf-row"><div class="pf-label">Exclude keywords</div><div class="pf-tags"><span class="tag red">accounting</span><span class="tag red">insurance</span><span class="tag red">judiciary</span><span class="tag red">law enforcement</span><span class="tag red">law practice</span><span class="tag red">management consulting</span></div></div>
+          <div class="pf-row"><div class="pf-label">Company size</div><div class="pf-tags"><span class="tag">101&ndash;200</span><span class="tag">201&ndash;500</span><span class="tag">501&ndash;1,000</span><span class="tag">1,001&ndash;2,000</span><span class="tag">2,001&ndash;5,000</span><span class="tag">5,001&ndash;10,000</span><span class="tag">10,001+</span></div></div>
+        </div>
+
+        <div class="persona-card">
+          <div class="persona-head"><span class="ph-dot" style="background:var(--red)"></span><span class="ph-name">VC Firms</span><span class="ph-code">persona: VC</span></div>
+          <div class="pf-row"><div class="pf-label">Management level</div><div class="pf-tags"><span class="tag apollo">Owner</span><span class="tag apollo">Founder</span><span class="tag apollo">C-suite</span><span class="tag apollo">Partner</span><span class="tag apollo">VP</span><span class="tag apollo">Head</span><span class="tag apollo">Director</span><span class="tag apollo">Manager</span><span class="tag apollo">Senior</span><span class="tag apollo">Entry</span></div></div>
+          <div class="pf-row"><div class="pf-label">Exclude titles</div><div class="pf-tags"><span class="tag red">private equity</span></div></div>
+          <div class="pf-row"><div class="pf-label">Keywords — any of</div><div class="pf-tags"><span class="tag green">start up</span><span class="tag green">venture capital</span><span class="tag green">early stage</span><span class="tag green">pre-seed</span></div></div>
+          <div class="pf-row"><div class="pf-label">Exclude keywords</div><div class="pf-tags"><span class="tag red">investment banking</span><span class="tag red">accounting</span><span class="tag red">insurance</span><span class="tag red">judiciary</span><span class="tag red">law enforcement</span><span class="tag red">management consulting</span><span class="tag red">banking</span></div></div>
+          <div class="pf-row"><div class="pf-label">Industry</div><div class="pf-tags"><span class="tag apollo">venture capital &amp; private equity</span></div></div>
+          <div class="pf-row"><div class="pf-label">Exclude industry</div><div class="pf-tags"><span class="tag red">accounting</span><span class="tag red">insurance</span><span class="tag red">judiciary</span><span class="tag red">law enforcement</span><span class="tag red">law practice</span><span class="tag red">management consulting</span><span class="tag red">investment banking</span><span class="tag red">banking</span><span class="tag red">financial services</span></div></div>
+          <div class="pf-row"><div class="pf-label">Company size</div><div class="pf-tags"><span class="tag">1&ndash;10</span><span class="tag">11&ndash;20</span><span class="tag">21&ndash;50</span><span class="tag">51&ndash;100</span></div></div>
+        </div>
+
+        <div class="persona-card">
+          <div class="persona-head"><span class="ph-dot" style="background:#14b8a6"></span><span class="ph-name">Search Fund</span><span class="ph-code">persona: Search Fund</span></div>
+          <div class="pf-row"><div class="pf-label">Include titles</div><div class="pf-tags"><span class="tag green">Search Fund principal</span><span class="tag green">Search Fund entrepreneur</span><span class="tag green">ETA entrepreneur</span><span class="tag green">Acquisition Entrepreneur</span><span class="tag green">eta</span><span class="tag green">search fund manager</span><span class="tag green">search fund</span><span class="tag green">self-funded searcher</span><span class="tag green">searcher</span></div></div>
+          <div class="pf-row"><div class="pf-label">Similar titles</div><div class="pf-tags"><span class="tag">No</span></div></div>
+          <div class="pf-row"><div class="pf-label">Company size</div><div class="pf-tags"><span class="tag amber">Not set — add when ready</span></div></div>
+        </div>
+
+      </div>
+    </details>
 
     <!-- A1 -->
     <div class="step-card apollo" id="step-apollo-1">
@@ -770,7 +867,13 @@ body.editing .video-url-field { display: block; }
 
 </div>
 
-
+<div class="edit-toolbar" id="editToolbar">
+  <span class="et-label">Edit mode</span>
+  <span class="et-hint">Click any text to edit · auto-saved to this browser</span>
+  <span class="et-saved" id="etSaved">Saved ✓</span>
+  <button class="et-save" id="editSave">Download updated file</button>
+  <button class="et-exit" id="editExit">Exit</button>
+</div>
 
 <script>
 /* ============================================================
@@ -782,9 +885,9 @@ body.editing .video-url-field { display: block; }
 // Leave empty ('') to show the "record this" placeholder.
 const ARCADE = {
   'overview':   '',
-  'apollo-1':   '',
+  'apollo-1':   'https://app.arcade.software/share/an93dvjgUdwaitNmdIol',
   'apollo-2':   '',
-  'apollo-3':   '',
+  'apollo-3':   'https://app.arcade.software/share/Wx8OsBDoqwow0xVqqcp3',
   'hubspot-1':  '',
   'hubspot-2':  '',
   'lemlist-1':  '',
@@ -990,10 +1093,64 @@ var EDITABLE_SELECTORS = [
   '.faq-q > span', '.faq-a', '.country-name', '.country-note'
 ];
 var editing = false;
+var DRAFT_KEY = 'viq_playbook_drafts_v1';
+
+// Give every editable element a stable key so drafts can map back to it.
+function buildEditableKeys() {
+  var i = 0;
+  EDITABLE_SELECTORS.forEach(function (sel) {
+    document.querySelectorAll(sel).forEach(function (el) {
+      if (el.closest('.edit-toolbar')) return;
+      if (!el.hasAttribute('data-ekey')) el.setAttribute('data-ekey', 'e' + (i++));
+      else i++;
+    });
+  });
+}
+function readDrafts() { try { return JSON.parse(localStorage.getItem(DRAFT_KEY)) || null; } catch (e) { return null; } }
+function writeDrafts(d) { try { localStorage.setItem(DRAFT_KEY, JSON.stringify(d)); } catch (e) {} }
+function clearDrafts() { try { localStorage.removeItem(DRAFT_KEY); } catch (e) {} }
+function hasDrafts() {
+  var d = readDrafts();
+  return !!(d && ((d.text && Object.keys(d.text).length) || (d.videos && Object.keys(d.videos).length)));
+}
+var savedTimer;
+function flashSaved() {
+  var s = document.getElementById('etSaved'); if (!s) return;
+  s.classList.add('show'); clearTimeout(savedTimer);
+  savedTimer = setTimeout(function () { s.classList.remove('show'); }, 1200);
+}
+// Save one edited text element (only user-touched fields are stored, so restoring
+// never overwrites parts of the playbook you didn't change).
+function saveTextDraft(el) {
+  var k = el.getAttribute('data-ekey'); if (!k) return;
+  var d = readDrafts() || {}; if (!d.text) d.text = {};
+  d.text[k] = el.innerHTML; writeDrafts(d); flashSaved();
+}
+function saveVideoDrafts() {
+  var d = readDrafts() || {}; d.videos = {};
+  document.querySelectorAll('.video-embed[data-arcade]').forEach(function (el) {
+    var u = el.getAttribute('data-arcade-url'); if (u) d.videos[el.getAttribute('data-arcade')] = u;
+  });
+  writeDrafts(d); flashSaved();
+}
+function applyDrafts() {
+  var d = readDrafts(); if (!d) return;
+  if (d.text) Object.keys(d.text).forEach(function (k) {
+    var el = document.querySelector('[data-ekey="' + k + '"]'); if (el) el.innerHTML = d.text[k];
+  });
+  if (d.videos) Object.keys(d.videos).forEach(function (k) {
+    var el = document.querySelector('.video-embed[data-arcade="' + k + '"]');
+    if (el) {
+      el.setAttribute('data-arcade-url', d.videos[k]); renderVideo(el);
+      var f = el.nextElementSibling; var inp = f && f.querySelector('input'); if (inp) inp.value = d.videos[k];
+    }
+  });
+}
 
 function enterEdit() {
   editing = true;
   document.body.classList.add('editing');
+  buildEditableKeys();
   EDITABLE_SELECTORS.forEach(function (sel) {
     document.querySelectorAll(sel).forEach(function (el) {
       if (el.closest('.edit-toolbar')) return;
@@ -1011,6 +1168,14 @@ function exitEdit() {
   });
 }
 
+// Auto-save on every keystroke / video-link change while editing.
+document.addEventListener('input', function (e) {
+  if (!editing) return;
+  var el = e.target.closest ? e.target.closest('[data-ekey]') : null;
+  if (el) { saveTextDraft(el); return; }
+  if (e.target.closest && e.target.closest('.video-url-field')) saveVideoDrafts();
+});
+
 document.getElementById('editTrigger').addEventListener('click', function () {
   if (editing) return;
   var pass = prompt('Enter the edit passcode to make changes:');
@@ -1018,16 +1183,33 @@ document.getElementById('editTrigger').addEventListener('click', function () {
   if (pass !== EDIT_PASSCODE) { alert('Incorrect passcode.'); return; }
   enterEdit();
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  alert('Edit mode is on.\n\n• Click any text to change it.\n• Paste an Arcade link in the box under each step video.\n\nWhen done, click "Download updated file" and re-publish it (see the maintainer note in Overview).');
+  alert('Edit mode is on.\n\nYour changes save to this browser automatically as you type, so a refresh will not lose them.\n\nTo publish for everyone: click "Download updated file", then upload it to GitHub (see the maintainer note in Overview).');
 });
 document.getElementById('editExit').addEventListener('click', exitEdit);
+
+// On load: assign keys, and if unsaved edits exist, offer to restore them.
+buildEditableKeys();
+(function () {
+  if (!hasDrafts()) return;
+  var banner = document.getElementById('draftBanner');
+  banner.classList.add('show');
+  document.getElementById('draftRestore').addEventListener('click', function () {
+    enterEdit(); applyDrafts(); banner.classList.remove('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  document.getElementById('draftDiscard').addEventListener('click', function () {
+    if (!confirm('Discard your unsaved local edits? This cannot be undone.')) return;
+    clearDrafts(); banner.classList.remove('show');
+  });
+})();
 
 document.getElementById('editSave').addEventListener('click', function () {
   // Build a clean standalone copy of the current (edited) page.
   var clone = document.documentElement.cloneNode(true);
-  // Remove edit-only UI
-  var tb = clone.querySelector('#editToolbar'); if (tb) tb.remove();
+  // Remove ONLY the injected video-url inputs (regenerated on load). The toolbar and
+  // draft banner stay in the file — CSS keeps them hidden until edit mode / drafts exist.
   clone.querySelectorAll('.video-url-field').forEach(function (n) { n.remove(); });
+  var db = clone.querySelector('#draftBanner'); if (db) db.classList.remove('show');
   // Strip edit attributes
   clone.querySelectorAll('[contenteditable]').forEach(function (n) { n.removeAttribute('contenteditable'); });
   clone.querySelectorAll('[data-editable]').forEach(function (n) { n.removeAttribute('data-editable'); });
