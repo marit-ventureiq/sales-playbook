@@ -98,7 +98,7 @@ a { color: var(--primary); }
 .context p + p { margin-top: 8px; }
 
 /* Video embed */
-.video-embed { margin-top: 6px; border-radius: var(--r-sm); overflow: hidden; border: 1px solid var(--border-med); background: #0b1220; position: relative; padding-bottom: 62%; height: 0; }
+.video-embed { margin-top: 6px; border-radius: var(--r-sm); overflow: hidden; border: 1px solid var(--border-med); background: #0b1220; position: relative; padding-bottom: 52.81%; height: 0; }
 .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .video-placeholder { padding-bottom: 0 !important; height: auto; background: var(--surface-2); border: 1px dashed var(--border-med); display:flex; flex-direction: column; align-items:center; justify-content:center; text-align:center; padding: 32px 20px; gap: 7px; }
 .video-placeholder .vp-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); }
@@ -555,8 +555,9 @@ body.editing .video-url-field { display: block; }
           <p>Open the persona that belongs to <strong>this exact ICP</strong> (e.g. Private Equity) and confirm its filters are active. The persona is what defines "who counts" — management level, title keywords, exclusions and company size. Then layer on the <strong>target country</strong> and require a <strong>verified email</strong>.</p>
           <p>Each ICP has its <em>own</em> persona — never reuse another ICP's persona, or you'll pull the wrong people.</p>
         </div>
-        <div class="block-label">Watch</div>
+        <div class="block-label">Watch · covers Steps 1 &amp; 2</div>
         <div class="video-embed" data-arcade="apollo-1"></div>
+        <div class="callout info" style="margin-top:8px;"><span class="callout-tag">Note</span><span>This walkthrough covers <strong>both</strong> selecting the persona (this step) and adding the matching contacts to the list (Step 2).</span></div>
         <div class="block-label">Key facts</div>
         <div class="callout tip"><span class="callout-tag">Tip</span><span>Require <strong>verified email only</strong> — unverified emails hurt deliverability downstream in Lemlist.</span></div>
         <div class="callout warn"><span class="callout-tag">Watch out</span><span>Each <strong>country gets its own list</strong>. Don't combine countries in one persona run.</span></div>
@@ -592,7 +593,7 @@ body.editing .video-url-field { display: block; }
           <p>Create a <strong>brand-new list</strong> named for the ICP + country, then add the filtered contacts to it. This list is the "holding pen" the workflow and AI filter operate on.</p>
         </div>
         <div class="block-label">Watch</div>
-        <div class="video-embed" data-arcade="apollo-2"></div>
+        <div class="callout info"><span class="callout-tag">Video</span><span>Demonstrated together with Step 1 &mdash; see the walkthrough under <strong>&ldquo;Select the persona filters&rdquo;</strong> above, which covers selecting the persona and adding contacts to the list in one flow.</span></div>
         <div class="block-label">Key facts</div>
         <div class="callout danger"><span class="callout-tag">Important</span><span>Do <strong>not duplicate</strong> an existing list to make a new one — duplicating copies all its contacts too and causes deduplication problems downstream. Always create a fresh, empty list.</span></div>
         <div class="callout info"><span class="callout-tag">Naming</span><span>Naming convention: <code>Segment for targeted outreach [ICP] [Country]</code></span></div>
@@ -667,22 +668,22 @@ body.editing .video-url-field { display: block; }
       <div class="step-body">
         <div class="block-label">What &amp; why</div>
         <div class="context">
-          <p>Create an <strong>active (dynamic)</strong> list for the ICP + country. The fastest route is to duplicate an existing ICP list that already has the correct ICP filters, then change only the <strong>country condition</strong>. Dynamic means the list re-evaluates itself — contacts are picked up or dropped as their properties change.</p>
+          <p>Create an <strong>active (dynamic)</strong> list for the ICP + country. The fastest route is to <strong>clone an existing list</strong> that's already set up, then adapt its filters &mdash; change the <strong>ICP</strong>, the <strong>country</strong>, or <strong>both</strong>, depending on which new combination you need. Dynamic means the list re-evaluates itself — contacts are picked up or dropped as their properties change.</p>
         </div>
         <div class="block-label">Watch</div>
         <div class="video-embed" data-arcade="hubspot-1"></div>
         <div class="block-label">Key facts</div>
         <div class="callout danger"><span class="callout-tag">Important</span><span>The list must be <strong>Active / dynamic</strong>, never Static. A static list won't pick up newly pushed contacts.</span></div>
-        <div class="callout tip"><span class="callout-tag">Tip</span><span>When duplicating an ICP list, change <strong>only the country</strong> filter — leave the ICP filters as they are.</span></div>
+        <div class="callout tip"><span class="callout-tag">Tip</span><span>Clone the closest existing list, then adapt only what differs &mdash; the <strong>ICP</strong>, the <strong>country</strong>, or <strong>both</strong>. Leave every other filter as it is.</span></div>
         <div class="tag-row">
-          <span class="tag">ICP = [ICP] (already set)</span>
-          <span class="tag amber">Update: Country = [target]</span>
+          <span class="tag">Clone existing list</span>
+          <span class="tag amber">Adapt: ICP and/or Country</span>
           <span class="tag green">Active / dynamic</span>
         </div>
         <div class="block-label">Checklist</div>
         <div class="checklist" data-step="hubspot-1">
-          <label class="check-item"><input type="checkbox" data-id="hubspot-1:0"><span class="check-label">Created / duplicated the list for this ICP + country</span></label>
-          <label class="check-item"><input type="checkbox" data-id="hubspot-1:1"><span class="check-label">Updated only the country condition</span></label>
+          <label class="check-item"><input type="checkbox" data-id="hubspot-1:0"><span class="check-label">Cloned an existing list as the starting point</span></label>
+          <label class="check-item"><input type="checkbox" data-id="hubspot-1:1"><span class="check-label">Adapted the ICP filter, the country filter, or both as needed</span></label>
           <label class="check-item"><input type="checkbox" data-id="hubspot-1:2"><span class="check-label">Confirmed the list is Active (dynamic), not Static</span></label>
         </div>
       </div>
@@ -888,7 +889,7 @@ const ARCADE = {
   'apollo-1':   'https://app.arcade.software/share/an93dvjgUdwaitNmdIol',
   'apollo-2':   '',
   'apollo-3':   'https://app.arcade.software/share/Wx8OsBDoqwow0xVqqcp3',
-  'hubspot-1':  '',
+  'hubspot-1':  'https://app.arcade.software/share/szuRCZRxp7DulspOlCX1',
   'hubspot-2':  '',
   'lemlist-1':  '',
   'lemlist-2':  ''
