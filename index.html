@@ -56,6 +56,31 @@ a { color: var(--primary); }
 .tab-panel.active { display: block; }
 @keyframes fade { from { opacity: 0; transform: translateY(4px);} to { opacity: 1; transform: none;} }
 
+/* Path chooser (opening screen) */
+.chooser { position: fixed; inset: 0; z-index: 200; background: var(--bg); display: flex; align-items: center; justify-content: center; padding: 32px 24px; overflow: auto; }
+.chooser-inner { max-width: 680px; width: 100%; text-align: center; }
+.chooser .brand-logo { margin: 0 auto 20px; }
+.chooser-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 10px; }
+.chooser-title { font-size: 30px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 8px; }
+.chooser-sub { font-size: 14.5px; color: var(--text-2); margin-bottom: 30px; }
+.choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.choice-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+.choice-card { text-align: left; background: var(--surface); border: 1.5px solid var(--border-med); border-radius: var(--r); padding: 20px; cursor: pointer; font-family: var(--font); transition: all .15s; box-shadow: var(--shadow); }
+.choice-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.choice-card.tool { text-align: center; }
+.choice-badge { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--green); background: var(--green-bg); border-radius: 999px; padding: 3px 10px; margin-bottom: 12px; }
+.choice-badge.alt { color: var(--primary); background: var(--primary-bg); }
+.choice-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-bottom: 10px; }
+.choice-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+.choice-desc { font-size: 13px; color: var(--text-2); line-height: 1.45; }
+.chooser-back { margin-top: 18px; background: none; border: none; color: var(--text-2); font-size: 13px; cursor: pointer; font-family: var(--font); }
+.chooser-back:hover { color: var(--text); }
+.chooser-skip { margin-top: 26px; background: none; border: none; color: var(--text-3); font-size: 12.5px; cursor: pointer; font-family: var(--font); text-decoration: underline; display: block; margin-left: auto; margin-right: auto; }
+.chooser-skip:hover { color: var(--text-2); }
+.path-menu-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 6px 13px; font-size: 12px; font-weight: 500; color: var(--text-2); cursor: pointer; font-family: var(--font); margin-bottom: 18px; transition: all .15s; }
+.path-menu-btn:hover { border-color: var(--primary); color: var(--primary); }
+@media (max-width: 560px) { .choice-grid, .choice-grid.three { grid-template-columns: 1fr; } .chooser-title { font-size: 24px; } }
+
 /* Section labels */
 .section-label { font-size: 11px; font-weight: 600; color: var(--text-3); letter-spacing: .08em; text-transform: uppercase; margin: 30px 0 12px; display: flex; align-items: center; gap: 10px; }
 .section-label:first-of-type { margin-top: 0; }
@@ -269,7 +294,46 @@ body.editing .video-url-field { display: block; }
 </style>
 </head>
 <body class="">
+
+<!-- ============ PATH CHOOSER (opening screen) ============ -->
+<div class="chooser" id="chooser">
+  <div class="chooser-inner">
+    <div class="brand-logo">V</div>
+    <p class="chooser-eyebrow">Sales Pipeline Playbook</p>
+    <h1 class="chooser-title" id="chooserTitle">What do you need?</h1>
+    <p class="chooser-sub" id="chooserSub">Jump straight to the right place — or see the full picture first.</p>
+
+    <div id="cStep1">
+      <div class="choice-grid">
+        <button class="choice-card" data-choose="overview">
+          <span class="choice-badge">Start here</span>
+          <div class="choice-title">See the overview</div>
+          <div class="choice-desc">How the pipeline works and how Apollo, HubSpot &amp; Lemlist connect.</div>
+        </button>
+        <button class="choice-card" data-choose="steps">
+          <span class="choice-badge alt">By tool</span>
+          <div class="choice-title">I'm on a specific step</div>
+          <div class="choice-desc">Go straight to the instructions for the tool you're working in now.</div>
+        </button>
+      </div>
+    </div>
+
+    <div id="cStep2" hidden>
+      <div class="choice-grid three">
+        <button class="choice-card tool" data-goto2="apollo"><span class="choice-dot" style="background:var(--apollo)"></span><div class="choice-title">Apollo</div><div class="choice-desc">Source &amp; qualify</div></button>
+        <button class="choice-card tool" data-goto2="hubspot"><span class="choice-dot" style="background:var(--hs)"></span><div class="choice-title">HubSpot</div><div class="choice-desc">Route &amp; store</div></button>
+        <button class="choice-card tool" data-goto2="lemlist"><span class="choice-dot" style="background:var(--sl)"></span><div class="choice-title">Lemlist</div><div class="choice-desc">Email &amp; launch</div></button>
+      </div>
+      <button class="chooser-back" id="cBack">← back</button>
+    </div>
+
+    <button class="chooser-skip" id="cSkip">Skip — open the full guide</button>
+  </div>
+</div>
+
 <div class="page">
+
+  <button class="path-menu-btn" id="pathMenuBtn">↺ Change path</button>
 
   <div class="header">
     <div class="brand-logo">V</div>
@@ -313,21 +377,17 @@ body.editing .video-url-field { display: block; }
 
   <!-- ============ OVERVIEW ============ -->
   <div class="tab-panel active" id="panel-overview">
-    <p class="lede">Welcome. This playbook is your complete handover for running and automating the outbound sales pipeline. Start here to understand <strong>why</strong> the system exists and how the three tools connect.</p>
-
-    <div class="section-label">The big picture</div>
-    <div class="context" style="margin-bottom:6px;">
-      <p>We run one repeatable pipeline for every <strong>ICP × country</strong> combination. Contacts are <strong>sourced and qualified in Apollo</strong>, <strong>routed and stored in HubSpot</strong>, then <strong>emailed from Lemlist</strong>. New matching contacts flow in automatically in Hubspot, and outdated ones drop out.</p>
-    </div>
+    <p class="lede">One repeatable pipeline, run separately for every <strong>ICP × country</strong>: <strong style="color:var(--apollo)">Apollo</strong> sources &amp; qualifies → <strong style="color:var(--hs)">HubSpot</strong> routes &amp; stores → <strong style="color:var(--sl)">Lemlist</strong> emails. New matches flow in automatically; outdated contacts drop out.</p>
 
     <div class="callout danger"><span class="callout-tag">Excluded</span><span><strong>Benelux and DACH are off-limits for any cold outreach.</strong> Because of our cooperation with Dealsuite, we never cold-email the Benelux (Belgium, Netherlands, Luxembourg) or DACH (Germany, Austria, Switzerland) regions. Do not create Apollo lists, HubSpot lists or Lemlist campaigns for these countries under any ICP.</span></div>
 
+    <div class="section-label">The 3 steps</div>
     <div class="pipe-flow">
       <div class="pipe-node apollo">
         <div class="pipe-icon">A</div>
         <div>
           <div class="pipe-title">1 · Apollo — source &amp; qualify</div>
-          <div class="pipe-desc">Set persona filters per ICP + country, add matches to a dedicated list, then build a workflow so the list keeps itself up to date (adds new matches, removes contacts that no longer fit and pushes the updated contact list to Hubspot).</div>
+          <div class="pipe-desc">Persona filters per ICP + country → a dedicated list → an auto-updating workflow that adds new matches, drops non-fits, and pushes the list to HubSpot.</div>
           <button class="pipe-jump" data-goto="apollo">Open Apollo steps →</button>
         </div>
       </div>
@@ -336,7 +396,7 @@ body.editing .video-url-field { display: block; }
         <div class="pipe-icon">H</div>
         <div>
           <div class="pipe-title">2 · HubSpot — route &amp; store</div>
-          <div class="pipe-desc">Create a filtered, dynamic list per ICP + country. When contacts are pushed from Apollo, anyone matching the criteria lands in the right list automatically.</div>
+          <div class="pipe-desc">A dynamic list per ICP + country — contacts pushed from Apollo land in the right list automatically.</div>
           <button class="pipe-jump" data-goto="hubspot">Open HubSpot steps →</button>
         </div>
       </div>
@@ -345,7 +405,7 @@ body.editing .video-url-field { display: block; }
         <div class="pipe-icon">L</div>
         <div>
           <div class="pipe-title">3 · Lemlist — email &amp; launch</div>
-          <div class="pipe-desc">Build a campaign with the email sequence written for that ICP, import the matching HubSpot list manually, and launch according to the sending criteria.</div>
+          <div class="pipe-desc">A campaign per ICP with its email sequence; import the matching HubSpot list and launch by the sending rules.</div>
           <button class="pipe-jump" data-goto="lemlist">Open Lemlist steps →</button>
         </div>
       </div>
@@ -353,7 +413,7 @@ body.editing .video-url-field { display: block; }
 
     <!-- ICPs -->
     <div class="section-label">Our ICPs</div>
-    <p class="lede">An <strong>ICP (Ideal Customer Profile)</strong> is a defined type of lead we target. Each ICP has its own Apollo persona, its own HubSpot list, and its own Lemlist email copy</p>
+    <p class="lede">Each <strong>ICP</strong> (Ideal Customer Profile) is a lead type we target — its own Apollo persona, HubSpot list and Lemlist copy. Tap one for its definition:</p>
     <div class="icp-grid" id="icpGrid">
       <button class="icp-chip active" data-icp="pe"><span class="icp-dot" style="background:var(--green)"></span>Private Equity</button>
       <button class="icp-chip" data-icp="ma"><span class="icp-dot" style="background:var(--primary)"></span>M&amp;A Boutiques</button>
@@ -428,7 +488,7 @@ body.editing .video-url-field { display: block; }
 
     <!-- Countries -->
     <div class="section-label">Target countries</div>
-    <p class="lede">Every ICP is run <strong>separately per country group</strong> — its own Apollo list, its own HubSpot list, and its own Lemlist campaign. This keeps sending volumes, language and localisation clean. These are the groups currently tracked in the campaign dashboards; some are single countries and some are regional clusters. <strong>Benelux and DACH are deliberately absent</strong> — they are excluded from cold outreach (see the note at the top of this page).</p>
+    <p class="lede">Every ICP runs <strong>separately per country group</strong> (own Apollo list, HubSpot list &amp; Lemlist campaign). <strong>Benelux and DACH are deliberately absent</strong> — excluded from cold outreach.</p>
     <div class="country-grid">
       <div class="country-card"><div class="country-name">Spain</div><div class="country-note">Single market</div></div>
       <div class="country-card"><div class="country-name">Italy</div><div class="country-note">Single market</div></div>
@@ -780,7 +840,7 @@ body.editing .video-url-field { display: block; }
         <div class="block-label">Watch</div>
         <div class="video-embed" data-arcade="lemlist-2"></div>
         <div class="block-label">Key facts</div>
-        <div class="callout warn"><span class="callout-tag">Watch out</span><span>Turn <strong>"skip contacts already in another campaign" ON</strong> so no one gets enrolled twice.</span></div>
+        <div class="callout warn"><span class="callout-tag">Important</span><span>Under <strong>Manage duplicates</strong>, choose <strong>"Don't import leads currently in progress in another campaign"</strong> (excludes leads that are reviewed, in progress or paused) — so no contact is ever enrolled in two campaigns at once.</span></div>
         <div class="callout tip"><span class="callout-tag">Tip</span><span>Map every field you use in the copy — especially <strong>Country → Country</strong> — or variables render blank.</span></div>
         <div class="tag-row">
           <span class="tag sl">Import from HubSpot</span>
@@ -886,8 +946,8 @@ const ARCADE = {
   'apollo-3':   'https://app.arcade.software/share/Wx8OsBDoqwow0xVqqcp3',
   'hubspot-1':  'https://app.arcade.software/share/szuRCZRxp7DulspOlCX1',
   'hubspot-2':  '',
-  'lemlist-1':  '',
-  'lemlist-2':  ''
+  'lemlist-1':  'https://app.arcade.software/share/jrWBvuouub6mUma9LSJA',
+  'lemlist-2':  'https://app.arcade.software/share/UiAlwc19gOtgDGQQG4mB'
 };
 
 // 2) QUESTION FORM DESTINATION
@@ -1234,10 +1294,29 @@ document.getElementById('editSave').addEventListener('click', function () {
   setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
 });
 
-// --- Open tab from URL hash ---
+// --- Path chooser + open tab from URL hash ---
 (function () {
+  var chooser = document.getElementById('chooser');
+  var step1 = document.getElementById('cStep1'), step2 = document.getElementById('cStep2');
+  var cTitle = document.getElementById('chooserTitle'), cSub = document.getElementById('chooserSub');
+  function reset() { step1.hidden = false; step2.hidden = true; cTitle.textContent = 'What do you need?'; cSub.textContent = 'Jump straight to the right place — or see the full picture first.'; }
+  function openGuide(tab) { chooser.style.display = 'none'; activateTab(tab || 'overview'); if (tab) history.replaceState(null, '', '#' + tab); }
+  function openChooser() { reset(); chooser.style.display = 'flex'; window.scrollTo(0, 0); }
+  chooser.querySelectorAll('[data-choose]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (b.dataset.choose === 'overview') { openGuide('overview'); }
+      else { step1.hidden = true; step2.hidden = false; cTitle.textContent = 'Which tool are you in?'; cSub.textContent = "We'll take you straight to those steps."; }
+    });
+  });
+  chooser.querySelectorAll('[data-goto2]').forEach(function (b) {
+    b.addEventListener('click', function () { openGuide(b.dataset.goto2); });
+  });
+  document.getElementById('cBack').addEventListener('click', reset);
+  document.getElementById('cSkip').addEventListener('click', function () { openGuide('overview'); });
+  document.getElementById('pathMenuBtn').addEventListener('click', openChooser);
+  // Deep link: a URL hash targeting a tab skips the chooser and opens it directly.
   var h = (location.hash || '').replace('#', '');
-  if (h && document.getElementById('panel-' + h)) activateTab(h);
+  if (h && document.getElementById('panel-' + h)) { chooser.style.display = 'none'; activateTab(h); }
 })();
 </script>
 
