@@ -130,6 +130,21 @@ a { color: var(--primary); }
 .video-placeholder .vp-title { font-size: 13px; color: var(--text-2); font-weight: 500; }
 .video-placeholder .vp-sub { font-size: 11.5px; color: var(--text-3); font-family: var(--mono); }
 
+/* Metric cards */
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-top: 6px; }
+.metric-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); padding: 15px 16px; }
+.metric-card .m-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.metric-card .m-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.metric-card .m-target { font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 999px; white-space: nowrap; letter-spacing: .02em; }
+.m-target.good { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+.m-target.watch { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.m-target.neutral { background: var(--surface-3); color: var(--text-3); border: 1px solid var(--border); }
+.metric-card .m-def { font-size: 12.5px; color: var(--text-2); line-height: 1.6; }
+/* Numbered how-to list */
+.howto { counter-reset: htc; display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+.howto-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 15px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm); box-shadow: var(--shadow); }
+.howto-item::before { counter-increment: htc; content: counter(htc); flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--primary-bg); color: var(--primary); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.howto-item .ht-text { font-size: 13px; color: var(--text-2); line-height: 1.6; }
 /* Image figure */
 .figure { margin-top: 6px; }
 .figure img { width: 100%; border-radius: var(--r-sm); border: 1px solid var(--border); display: block; }
@@ -372,6 +387,7 @@ body.editing .video-url-field { display: block; }
     <button class="tab" data-tab="apollo"><span class="tdot" style="background:var(--apollo)"></span>Apollo</button>
     <button class="tab" data-tab="hubspot"><span class="tdot" style="background:var(--hs)"></span>HubSpot</button>
     <button class="tab" data-tab="lemlist"><span class="tdot" style="background:var(--sl)"></span>Lemlist</button>
+    <button class="tab" data-tab="metrics"><span class="tdot" style="background:var(--green)"></span>Performance</button>
     <button class="tab" data-tab="questions">Questions</button>
   </div>
 
@@ -857,7 +873,39 @@ body.editing .video-url-field { display: block; }
       </div>
     </div>
 
-    <div class="callout info" style="margin-top:8px;"><span class="callout-tag">Next</span><span>After launch, monitoring lives in the campaign metrics + inbox-placement dashboards. <em>Link those here once hosted.</em></span></div>
+    <div class="callout info" style="margin-top:8px;"><span class="callout-tag">Next</span><span>Once campaigns are live, watch how they perform &mdash; see the <strong>Performance</strong> tab.</span></div>
+  </div>
+
+  <!-- ============ PERFORMANCE ============ -->
+  <div class="tab-panel" id="panel-metrics">
+    <div class="tool-intro" style="background:var(--green-bg);border-color:var(--green-border)">
+      <div class="tool-intro-icon" style="background:var(--green)"><svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="12" width="4" height="9" rx="1" fill="#fff"/><rect x="10" y="6" width="4" height="15" rx="1" fill="#fff"/><rect x="17" y="9" width="4" height="12" rx="1" fill="#fff"/></svg></div>
+      <div>
+        <div class="tool-intro-title">Performance — the consolidated view</div>
+        <div class="tool-intro-sub">Not for analysing one campaign at a time. This is the <strong>consolidated analysis across every ICP and country</strong> &mdash; the whole program in one place.</div>
+      </div>
+    </div>
+
+    <div class="section-label">What it shows</div>
+    <div class="metric-grid">
+      <div class="metric-card"><div class="m-top"><span class="m-name">The matrix</span></div><div class="m-def">Performance per <strong>ICP × country</strong> across <strong>open rate</strong>, <strong>reply rate</strong> and <strong>unsubscribe rate</strong>.</div></div>
+      <div class="metric-card"><div class="m-top"><span class="m-name">Performance over time</span></div><div class="m-def">Graphs of <strong>open rate</strong> and <strong>reply rate</strong> over time, <strong>per ICP</strong>.</div></div>
+    </div>
+
+    <div class="block-label">Watch</div>
+    <div class="video-embed" data-arcade="metrics"></div>
+
+    <div class="section-label">What it's for</div>
+    <div class="callout tip"><span class="callout-tag">Spot winners</span><span>See which ICP × country campaigns are performing well.</span></div>
+    <div class="callout info"><span class="callout-tag">Relaunch timing</span><span>Know when to relaunch (≈3-month cycle) and when the metrics signal a campaign needs improving.</span></div>
+    <div class="callout info"><span class="callout-tag">Best / worst step</span><span>See which sequence step performs best on open &amp; reply rate — and exactly which step to improve when you relaunch.</span></div>
+
+    <div class="section-label">The three metrics</div>
+    <div class="metric-grid">
+      <div class="metric-card"><div class="m-top"><span class="m-name">Open rate</span><span class="m-target good">aim 50%+</span></div><div class="m-def">Who opened. Directional — Apple Mail auto-opens inflate it.</div></div>
+      <div class="metric-card"><div class="m-top"><span class="m-name">Reply rate</span><span class="m-target watch">aim 3%+</span></div><div class="m-def">Who replied — the real KPI. Below ~1% = needs work.</div></div>
+      <div class="metric-card"><div class="m-top"><span class="m-name">Unsubscribe rate</span><span class="m-target good">under 2%</span></div><div class="m-def">Opt-outs. A spike = wrong audience or pushy copy.</div></div>
+    </div>
   </div>
 
   <!-- ============ QUESTIONS ============ -->
@@ -947,7 +995,8 @@ const ARCADE = {
   'hubspot-1':  'https://app.arcade.software/share/szuRCZRxp7DulspOlCX1',
   'hubspot-2':  '',
   'lemlist-1':  'https://app.arcade.software/share/jrWBvuouub6mUma9LSJA',
-  'lemlist-2':  'https://app.arcade.software/share/UiAlwc19gOtgDGQQG4mB'
+  'lemlist-2':  'https://app.arcade.software/share/UiAlwc19gOtgDGQQG4mB',
+  'metrics':    'https://app.arcade.software/share/pjgiEkmyaVreHP6Enn4B'
 };
 
 // 2) QUESTION FORM DESTINATION
@@ -1146,7 +1195,8 @@ var EDITABLE_SELECTORS = [
   '.tool-intro-title', '.tool-intro-sub', '.pipe-title', '.pipe-desc',
   '.step-title', '.callout > span:last-child', '.check-label',
   '.icp-panel h4', '.icp-panel p', '.def-v',
-  '.faq-q > span', '.faq-a', '.country-name', '.country-note'
+  '.faq-q > span', '.faq-a', '.country-name', '.country-note',
+  '.m-name', '.m-def', '.ht-text'
 ];
 var editing = false;
 var DRAFT_KEY = 'viq_playbook_drafts_v1';
