@@ -145,6 +145,61 @@ a { color: var(--primary); }
 .howto-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 15px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm); box-shadow: var(--shadow); }
 .howto-item::before { counter-increment: htc; content: counter(htc); flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--primary-bg); color: var(--primary); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
 .howto-item .ht-text { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+/* Routine cycle (overview) */
+.routine { position: relative; margin: 10px 0 8px; padding-left: 30px; }
+.routine::before { content: ''; position: absolute; left: 2px; top: 24px; bottom: 60px; width: 17px; border: 2px solid var(--primary-border); border-right: none; border-radius: 12px 0 0 12px; }
+.phase-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); padding: 14px 16px 13px; }
+.phase-block.apollo { border-left: 3px solid var(--apollo); }
+.phase-block.hs { border-left: 3px solid var(--hs); }
+.phase-block.sl { border-left: 3px solid var(--sl); }
+.phase-block.perf { border-left: 3px solid var(--green); }
+.phase-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.phase-badge2 { width: 26px; height: 26px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.phase-block.apollo .phase-badge2 { background: var(--apollo); }
+.phase-block.hs .phase-badge2 { background: var(--hs); }
+.phase-block.sl .phase-badge2 { background: var(--sl); }
+.phase-block.perf .phase-badge2 { background: var(--green); }
+.phase-name2 { font-size: 14px; font-weight: 600; color: var(--text); }
+.phase-jump2 { margin-left: auto; font-size: 11.5px; font-weight: 600; color: var(--primary); background: none; border: none; cursor: pointer; font-family: inherit; white-space: nowrap; }
+.phase-jump2:hover { text-decoration: underline; }
+.rsteps { display: flex; flex-direction: column; gap: 7px; }
+.rstep { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; color: var(--text-2); line-height: 1.5; }
+.rstep-num { flex-shrink: 0; width: 19px; height: 19px; border-radius: 50%; background: var(--surface-3); color: var(--text-3); font-size: 10.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+.routine-arrow { text-align: center; color: var(--border-med); font-size: 13px; line-height: 1; padding: 5px 0; }
+.routine-loop { display: flex; align-items: center; gap: 12px; background: var(--primary-bg); border: 1px solid var(--primary-border); border-radius: var(--r); padding: 13px 16px; margin-top: 5px; }
+.routine-loop .rl-icon { color: var(--primary); flex-shrink: 0; display: flex; }
+.routine-loop .rl-text { font-size: 12.5px; color: var(--text-2); line-height: 1.5; }
+.routine-loop .rl-text strong { color: var(--primary); }
+/* Interactive circular cycle */
+.cycle-wrap { margin: 12px 0 6px; }
+.cycle { position: relative; width: 100%; max-width: 360px; margin: 0 auto; aspect-ratio: 1 / 1; }
+.cycle-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.cycle-svg circle { fill: none; stroke: var(--border-med); stroke-width: 2; stroke-dasharray: 3 7; }
+.cycle-svg .arrow { fill: var(--text-3); }
+.cycle-node { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 6px; background: none; border: none; cursor: pointer; font-family: inherit; width: 88px; padding: 0; }
+.cn-circle { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #fff; box-shadow: var(--shadow); border: 3px solid transparent; transition: transform .15s, box-shadow .15s; }
+.cn-label { font-size: 11.5px; font-weight: 600; color: var(--text-2); text-align: center; line-height: 1.2; }
+.cycle-node.apollo .cn-circle { background: var(--apollo); }
+.cycle-node.hs .cn-circle { background: var(--hs); }
+.cycle-node.sl .cn-circle { background: var(--sl); }
+.cycle-node.perf .cn-circle { background: var(--green); }
+.cycle-node:hover .cn-circle { transform: scale(1.06); }
+.cycle-node.active .cn-circle { transform: scale(1.14); box-shadow: var(--shadow-md); }
+.cycle-node.apollo.active .cn-circle { box-shadow: 0 0 0 4px var(--apollo-border); }
+.cycle-node.hs.active .cn-circle { box-shadow: 0 0 0 4px var(--hs-border); }
+.cycle-node.sl.active .cn-circle { box-shadow: 0 0 0 4px var(--sl-border); }
+.cycle-node.perf.active .cn-circle { box-shadow: 0 0 0 4px var(--green-border); }
+.cycle-node.active .cn-label { color: var(--text); }
+.cycle-next { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: var(--primary); color: #fff; border: none; border-radius: 999px; padding: 10px 16px; font-size: 12.5px; font-weight: 600; font-family: inherit; cursor: pointer; box-shadow: var(--shadow-md); white-space: nowrap; transition: opacity .15s; }
+.cycle-next:hover { opacity: .92; }
+.cdetail { display: none; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); padding: 15px 18px; }
+.cdetail.active { display: block; animation: fade .2s ease; }
+.cdetail.apollo { border-left: 3px solid var(--apollo); }
+.cdetail.hs { border-left: 3px solid var(--hs); }
+.cdetail.sl { border-left: 3px solid var(--sl); }
+.cdetail.perf { border-left: 3px solid var(--green); }
+.cdetail-head { display: flex; align-items: center; gap: 10px; margin-bottom: 11px; }
+.cdetail-hint { font-size: 11.5px; color: var(--text-3); margin-top: 11px; padding-top: 10px; border-top: 1px solid var(--border); }
 /* Image figure */
 .figure { margin-top: 6px; }
 .figure img { width: 100%; border-radius: var(--r-sm); border: 1px solid var(--border); display: block; }
@@ -397,32 +452,61 @@ body.editing .video-url-field { display: block; }
 
     <div class="callout danger"><span class="callout-tag">Excluded</span><span><strong>Benelux and DACH are off-limits for any cold outreach.</strong> Because of our cooperation with Dealsuite, we never cold-email the Benelux (Belgium, Netherlands, Luxembourg) or DACH (Germany, Austria, Switzerland) regions. Do not create Apollo lists, HubSpot lists or Lemlist campaigns for these countries under any ICP.</span></div>
 
-    <div class="section-label">The 3 steps</div>
-    <div class="pipe-flow">
-      <div class="pipe-node apollo">
-        <div class="pipe-icon">A</div>
-        <div>
-          <div class="pipe-title">1 · Apollo — source &amp; qualify</div>
-          <div class="pipe-desc">Persona filters per ICP + country → a dedicated list → an auto-updating workflow that adds new matches, drops non-fits, and pushes the list to HubSpot.</div>
-          <button class="pipe-jump" data-goto="apollo">Open Apollo steps →</button>
-        </div>
+    <div class="section-label">The routine</div>
+    <p class="lede">A <strong>circular routine</strong> you run per ICP × country and keep repeating. Tap a stage to see its steps — or use <strong>What's next?</strong> to walk the loop.</p>
+    <div class="cycle-wrap">
+      <div class="cycle" id="cycle">
+        <svg class="cycle-svg" viewBox="0 0 300 300" aria-hidden="true">
+          <circle cx="150" cy="150" r="110"/>
+          <path class="arrow" d="M-4,-5 L-4,5 L6,0 Z" transform="translate(227.8,72.2) rotate(45)"/>
+          <path class="arrow" d="M-4,-5 L-4,5 L6,0 Z" transform="translate(227.8,227.8) rotate(135)"/>
+          <path class="arrow" d="M-4,-5 L-4,5 L6,0 Z" transform="translate(72.2,227.8) rotate(225)"/>
+          <path class="arrow" d="M-4,-5 L-4,5 L6,0 Z" transform="translate(72.2,72.2) rotate(315)"/>
+        </svg>
+        <button class="cycle-node apollo active" data-phase="0" style="left:50%;top:11%"><span class="cn-circle">A</span><span class="cn-label">Apollo</span></button>
+        <button class="cycle-node hs" data-phase="1" style="left:86%;top:50%"><span class="cn-circle">H</span><span class="cn-label">HubSpot</span></button>
+        <button class="cycle-node sl" data-phase="2" style="left:50%;top:89%"><span class="cn-circle">L</span><span class="cn-label">Lemlist</span></button>
+        <button class="cycle-node perf" data-phase="3" style="left:14%;top:50%"><span class="cn-circle">M</span><span class="cn-label">Monitor &amp;<br>improve</span></button>
+        <button class="cycle-next" id="cycleNext">What's next? →</button>
       </div>
-      <div class="pipe-connector"></div>
-      <div class="pipe-node hs">
-        <div class="pipe-icon">H</div>
-        <div>
-          <div class="pipe-title">2 · HubSpot — route &amp; store</div>
-          <div class="pipe-desc">A dynamic list per ICP + country — contacts pushed from Apollo land in the right list automatically.</div>
-          <button class="pipe-jump" data-goto="hubspot">Open HubSpot steps →</button>
+      <div class="cycle-detail">
+        <div class="cdetail apollo active" data-phase="0">
+          <div class="cdetail-head"><span class="phase-badge2" style="background:var(--apollo)">A</span><span class="phase-name2">Apollo — source &amp; qualify</span><button class="phase-jump2" data-goto="apollo">Open →</button></div>
+          <div class="rsteps">
+            <div class="rstep"><span class="rstep-num">1</span><span>Create the correct persona in Apollo.</span></div>
+            <div class="rstep"><span class="rstep-num">2</span><span>Add the filtered contacts to a list (ICP × country).</span></div>
+            <div class="rstep"><span class="rstep-num">3</span><span>Set the ICP for the entire list.</span></div>
+            <div class="rstep"><span class="rstep-num">4</span><span>Create a workflow to auto-add new and remove old contacts.</span></div>
+          </div>
+          <div class="cdetail-hint">Next → HubSpot</div>
         </div>
-      </div>
-      <div class="pipe-connector"></div>
-      <div class="pipe-node sl">
-        <div class="pipe-icon">L</div>
-        <div>
-          <div class="pipe-title">3 · Lemlist — email &amp; launch</div>
-          <div class="pipe-desc">A campaign per ICP with its email sequence; import the matching HubSpot list and launch by the sending rules.</div>
-          <button class="pipe-jump" data-goto="lemlist">Open Lemlist steps →</button>
+        <div class="cdetail hs" data-phase="1">
+          <div class="cdetail-head"><span class="phase-badge2" style="background:var(--hs)">H</span><span class="phase-name2">HubSpot — route &amp; store</span><button class="phase-jump2" data-goto="hubspot">Open →</button></div>
+          <div class="rsteps">
+            <div class="rstep"><span class="rstep-num">5</span><span>Create the list (duplicate an existing one with filters) and adapt for ICP / country.</span></div>
+            <div class="rstep"><span class="rstep-num">6</span><span>Push the list from Apollo → HubSpot — matching ICP + criteria land in the list.</span></div>
+          </div>
+          <div class="cdetail-hint">Next → Lemlist</div>
+        </div>
+        <div class="cdetail sl" data-phase="2">
+          <div class="cdetail-head"><span class="phase-badge2" style="background:var(--sl)">L</span><span class="phase-name2">Lemlist — email &amp; launch</span><button class="phase-jump2" data-goto="lemlist">Open →</button></div>
+          <div class="rsteps">
+            <div class="rstep"><span class="rstep-num">7</span><span>Create the campaign / agree the sequence with Koen for the ICP + country.</span></div>
+            <div class="rstep"><span class="rstep-num">8</span><span>Add leads from HubSpot — choose the correct list.</span></div>
+            <div class="rstep"><span class="rstep-num">9</span><span>Launch the campaign.</span></div>
+          </div>
+          <div class="cdetail-hint">Next → Monitor &amp; improve</div>
+        </div>
+        <div class="cdetail perf" data-phase="3">
+          <div class="cdetail-head"><span class="phase-badge2" style="background:var(--green)">M</span><span class="phase-name2">Monitor &amp; improve</span><button class="phase-jump2" data-goto="metrics">Open →</button></div>
+          <div class="rsteps">
+            <div class="rstep"><span class="rstep-num">10</span><span>Check the performance-metrics tool (launched campaigns can't be edited in Lemlist).</span></div>
+            <div class="rstep"><span class="rstep-num">11</span><span>Check the inbox — reply, and tag leads interested / not interested.</span></div>
+            <div class="rstep"><span class="rstep-num">12</span><span>Evaluate A/B test performance.</span></div>
+            <div class="rstep"><span class="rstep-num">13</span><span>The tool flags when to relaunch — ≈3 months after the campaign's last email sent.</span></div>
+            <div class="rstep"><span class="rstep-num">14</span><span>Improve the emails, re-check &amp; adapt Apollo filters, upload a clean list, and relaunch.</span></div>
+          </div>
+          <div class="cdetail-hint">Next → relaunch, back to Apollo — the loop repeats every ~3 months.</div>
         </div>
       </div>
     </div>
@@ -694,24 +778,19 @@ body.editing .video-url-field { display: block; }
       <div class="step-body">
         <div class="block-label">What &amp; why</div>
         <div class="context">
-          <p>This is the automation that makes the list <em>self-maintaining</em>. Create a workflow triggered by the persona + country + verified-email conditions so new matching contacts are <strong>added automatically</strong> and contacts that no longer match drop out. Add the ICP's <strong>AI filter</strong> as a step so every contact is scored <strong>Qualified / Not Qualified</strong>, and set the <strong>ICP field</strong> only for contacts that are in this list <em>and</em> Qualified.</p>
+          <p><strong>Only contacts that match the filters and the target country are qualified and added to the correct ICP × country list</strong> — and from there pushed to HubSpot. Contacts that don't match are <strong>removed automatically</strong>.</p>
         </div>
         <div class="block-label">Watch</div>
         <div class="video-embed" data-arcade="apollo-3"></div>
-        <div class="block-label">Key facts</div>
-        <div class="callout warn"><span class="callout-tag">Watch out</span><span><strong>Apollo plan limits apply.</strong> Auto-adding via workflow and bulk AI research are both capped by plan — the Basic plan caps bulk AI runs at ~100/day. Confirm the plan or run in batches of 100.</span></div>
-        <div class="callout info"><span class="callout-tag">Repeat</span><span>Create a <strong>separate workflow per country</strong>, using each country's own list.</span></div>
         <div class="tag-row">
-          <span class="tag green">In list + Qualified → set ICP</span>
-          <span class="tag red">Not Qualified → excluded</span>
+          <span class="tag green">Match + qualified → added &amp; pushed to HubSpot</span>
+          <span class="tag red">No match → removed</span>
         </div>
         <div class="block-label">Checklist</div>
         <div class="checklist" data-step="apollo-3">
-          <label class="check-item"><input type="checkbox" data-id="apollo-3:0"><span class="check-label">Created a workflow triggered by persona + country + verified email</span></label>
-          <label class="check-item"><input type="checkbox" data-id="apollo-3:1"><span class="check-label">Added the ICP's AI filter as a workflow step</span></label>
-          <label class="check-item"><input type="checkbox" data-id="apollo-3:2"><span class="check-label">Set the ICP field only for in-list + Qualified contacts</span></label>
-          <label class="check-item"><input type="checkbox" data-id="apollo-3:3"><span class="check-label">Confirmed plan limits / batching</span></label>
-          <label class="check-item"><input type="checkbox" data-id="apollo-3:4"><span class="check-label">Duplicated the workflow for each additional country</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Workflow adds only contacts matching persona + country + verified email</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">AI filter qualifies them and the ICP is set on the list</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Non-matching contacts are removed automatically</span></label>
         </div>
       </div>
     </div>
@@ -743,8 +822,10 @@ body.editing .video-url-field { display: block; }
         <div class="context">
           <p>Create an <strong>active (dynamic)</strong> list for the ICP + country. The fastest route is to <strong>clone an existing list</strong> that's already set up, then adapt its filters &mdash; change the <strong>ICP</strong>, the <strong>country</strong>, or <strong>both</strong>, depending on which new combination you need. Dynamic means the list re-evaluates itself — contacts are picked up or dropped as their properties change.</p>
         </div>
-        <div class="block-label">Watch</div>
+        <div class="block-label">Watch · create &amp; adapt the list</div>
         <div class="video-embed" data-arcade="hubspot-1"></div>
+        <div class="block-label">Watch · cloning a list &amp; setting the ICP type in detail</div>
+        <div class="video-embed" data-arcade="hubspot-1b"></div>
         <div class="block-label">Key facts</div>
         <div class="callout danger"><span class="callout-tag">Important</span><span>The list must be <strong>Active / dynamic</strong>, never Static. A static list won't pick up newly pushed contacts.</span></div>
         <div class="callout tip"><span class="callout-tag">Tip</span><span>Clone the closest existing list, then adapt only what differs &mdash; the <strong>ICP</strong>, the <strong>country</strong>, or <strong>both</strong>. Leave every other filter as it is.</span></div>
@@ -778,9 +859,10 @@ body.editing .video-url-field { display: block; }
         <div class="context">
           <p>Confirm the list's <strong>ICP type</strong> matches the segment, then push the qualified contacts from Apollo (filter Apollo for <code>ICP = [ICP]</code> and export to HubSpot). Because the list is dynamic and filtered on ICP + country, anyone who meets the criteria is <strong>added to the correct list automatically</strong> — no manual assignment.</p>
         </div>
-        <div class="block-label">Watch</div>
+        <div class="block-label">Watch · pushing contacts from Apollo to HubSpot</div>
         <div class="video-embed" data-arcade="hubspot-2"></div>
         <div class="block-label">Key facts</div>
+        <div class="callout danger"><span class="callout-tag">First</span><span>Before pushing contacts from Apollo to HubSpot, <strong>the HubSpot list with the correct filters must already exist</strong> (Step 4). Create it first, then push.</span></div>
         <div class="callout info"><span class="callout-tag">Note</span><span>The ICP field flows from Apollo. If a contact lands in the wrong list, check its ICP + country properties in HubSpot first.</span></div>
         <div class="tag-row">
           <span class="tag hs">ICP set on list</span>
@@ -993,7 +1075,8 @@ const ARCADE = {
   'apollo-2':   '',
   'apollo-3':   'https://app.arcade.software/share/Wx8OsBDoqwow0xVqqcp3',
   'hubspot-1':  'https://app.arcade.software/share/szuRCZRxp7DulspOlCX1',
-  'hubspot-2':  '',
+  'hubspot-1b': 'https://app.arcade.software/share/2QwcKgJtyjfr9vmW6b9j',
+  'hubspot-2':  'https://app.arcade.software/share/DlhPcwaGhzwkMtbrgPuB',
   'lemlist-1':  'https://app.arcade.software/share/jrWBvuouub6mUma9LSJA',
   'lemlist-2':  'https://app.arcade.software/share/UiAlwc19gOtgDGQQG4mB',
   'metrics':    'https://app.arcade.software/share/pjgiEkmyaVreHP6Enn4B'
@@ -1072,6 +1155,25 @@ tabs.forEach(function (t) {
 document.querySelectorAll('[data-goto]').forEach(function (b) {
   b.addEventListener('click', function () { activateTab(b.dataset.goto); });
 });
+
+// --- Interactive cycle (overview) ---
+(function () {
+  var cycle = document.getElementById('cycle');
+  if (!cycle) return;
+  var nodes = Array.prototype.slice.call(cycle.querySelectorAll('.cycle-node'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.cdetail'));
+  var active = 0;
+  function render() {
+    nodes.forEach(function (n) { n.classList.toggle('active', +n.dataset.phase === active); });
+    panels.forEach(function (p) { p.classList.toggle('active', +p.dataset.phase === active); });
+  }
+  nodes.forEach(function (n) {
+    n.addEventListener('click', function () { active = +n.dataset.phase; render(); });
+  });
+  var next = document.getElementById('cycleNext');
+  if (next) next.addEventListener('click', function () { active = (active + 1) % nodes.length; render(); });
+  render();
+})();
 
 // --- ICP glossary chips ---
 var icpGrid = document.getElementById('icpGrid');
@@ -1196,7 +1298,7 @@ var EDITABLE_SELECTORS = [
   '.step-title', '.callout > span:last-child', '.check-label',
   '.icp-panel h4', '.icp-panel p', '.def-v',
   '.faq-q > span', '.faq-a', '.country-name', '.country-note',
-  '.m-name', '.m-def', '.ht-text'
+  '.m-name', '.m-def', '.ht-text', '.rstep > span:last-child', '.rl-text', '.phase-name2'
 ];
 var editing = false;
 var DRAFT_KEY = 'viq_playbook_drafts_v1';
