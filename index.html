@@ -510,6 +510,8 @@ body.editing .video-url-field { display: block; }
       </div>
     </div>
 
+    <div class="callout info" style="margin-top:14px;"><span class="callout-tag">Note</span><span>Once a contact has <strong>unsubscribed</strong>, they are automatically excluded from <strong>all future campaigns</strong> — even if they're later imported again from a HubSpot list.</span></div>
+
     <!-- ICPs -->
     <div class="section-label">Our ICPs</div>
     <div class="icp-grid" id="icpGrid">
@@ -901,7 +903,7 @@ body.editing .video-url-field { display: block; }
       <div class="step-body">
         <div class="block-label">What &amp; why</div>
         <div class="context">
-          <p>Create a new campaign for this ICP and build the <strong>email sequence</strong> using the copy written for that audience (subject lines, steps, delays). Each ICP speaks to a different reader, so the copy is never shared across ICPs.</p>
+          <p>Create a new campaign for this ICP and build the <strong>email sequence</strong> using the copy written for that audience (subject lines, steps, delays).</p>
         </div>
         <div class="block-label">Watch</div>
         <div class="video-embed" data-arcade="lemlist-1"></div>
@@ -974,15 +976,32 @@ body.editing .video-url-field { display: block; }
         <div class="block-label">The two outcomes</div>
         <div class="callout danger"><span class="callout-tag">Not interested</span><span>Tag the lead <strong>"not interested"</strong> and <strong>unsubscribe them from the email campaign</strong> so they get no further emails.</span></div>
         <div class="callout tip"><span class="callout-tag">Interested</span><span>Tag the lead <strong>"interested lead"</strong> (same process), then <strong>notify Koen</strong>. He takes over the reply and all further communication from his own private account.</span></div>
+        <div class="callout info"><span class="callout-tag">After Koen replies</span><span>Once Koen has responded, re-tag the conversation <strong>"contacted by Koen"</strong> (or <strong>"contacted by Alex"</strong>), so it's clear the lead has been picked up.</span></div>
+
+        <div class="block-label">Clear interest → back to HubSpot</div>
+        <div class="context">
+          <p>If a lead shows <strong>clear interest</strong>, then — after tagging it in Lemlist — circle back to HubSpot: create a <strong>deal</strong> and filter it as <strong>"Indicated Interest"</strong>.</p>
+        </div>
+        <div class="video-embed" data-arcade="lemlist-4"></div>
+
+        <div class="block-label">Sort the inbox by tags</div>
+        <div class="context">
+          <p>The Lemlist inbox can be <strong>sorted by tag</strong> — a cleaner overview of interested vs. not-interested vs. already-contacted leads.</p>
+        </div>
+        <div class="video-embed" data-arcade="lemlist-5"></div>
+
         <div class="tag-row">
           <span class="tag red">Not interested → tag + unsubscribe</span>
           <span class="tag green">Interested → tag + notify Koen</span>
+          <span class="tag hs">Clear interest → HubSpot deal "Indicated Interest"</span>
         </div>
         <div class="block-label">Checklist</div>
         <div class="checklist" data-step="lemlist-3">
           <label class="check-item"><input type="checkbox"><span class="check-label">Tagged each reply "interested lead" or "not interested"</span></label>
           <label class="check-item"><input type="checkbox"><span class="check-label">Unsubscribed "not interested" leads from the campaign</span></label>
           <label class="check-item"><input type="checkbox"><span class="check-label">Notified Koen of every interested lead (he handles it from his private account)</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">After Koen replied, re-tagged the conversation "contacted by Koen / Alex"</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">For clear interest, created a HubSpot deal filtered "Indicated Interest"</span></label>
         </div>
       </div>
     </div>
@@ -1114,6 +1133,8 @@ const ARCADE = {
   'lemlist-1':  'https://app.arcade.software/share/jrWBvuouub6mUma9LSJA',
   'lemlist-2':  'https://app.arcade.software/share/UiAlwc19gOtgDGQQG4mB',
   'lemlist-3':  'https://app.arcade.software/share/jMsM80qYGsDYF8do2oF3',
+  'lemlist-4':  'https://app.arcade.software/share/vO3UerfvFmE8nt2G2t5e',
+  'lemlist-5':  'https://app.arcade.software/share/bwbbp1HoX0cWokvirWW',
   'metrics':    'https://app.arcade.software/share/pjgiEkmyaVreHP6Enn4B'
 };
 
