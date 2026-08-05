@@ -23,7 +23,9 @@
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; padding: 40px 24px 100px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
-.page { max-width: 900px; margin: 0 auto; }
+.page { max-width: 1160px; margin: 0 auto; }
+/* keep prose readable even though the page is wide */
+.lede, .context { max-width: 860px; }
 a { color: var(--primary); }
 
 /* Header */
