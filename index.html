@@ -140,6 +140,8 @@ a { color: var(--primary); }
 .m-target.watch { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
 .m-target.neutral { background: var(--surface-3); color: var(--text-3); border: 1px solid var(--border); }
 .metric-card .m-def { font-size: 12.5px; color: var(--text-2); line-height: 1.6; }
+.dash-link { display: inline-flex; align-items: center; gap: 8px; margin: 14px 0 2px; background: var(--green); color: #fff; text-decoration: none; font-weight: 600; font-size: 13.5px; padding: 12px 20px; border-radius: var(--r-sm); box-shadow: var(--shadow); transition: opacity .15s; }
+.dash-link:hover { opacity: .92; }
 /* Numbered how-to list */
 .howto { counter-reset: htc; display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
 .howto-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 15px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm); box-shadow: var(--shadow); }
@@ -172,13 +174,13 @@ a { color: var(--primary); }
 .routine-loop .rl-text strong { color: var(--primary); }
 /* Interactive circular cycle */
 .cycle-wrap { margin: 12px 0 6px; }
-.cycle { position: relative; width: 100%; max-width: 360px; margin: 0 auto; aspect-ratio: 1 / 1; }
+.cycle { position: relative; width: 100%; max-width: 480px; margin: 4px auto 0; aspect-ratio: 1 / 1; }
 .cycle-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .cycle-svg circle { fill: none; stroke: var(--border-med); stroke-width: 2; stroke-dasharray: 3 7; }
 .cycle-svg .arrow { fill: var(--text-3); }
 .cycle-node { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 6px; background: none; border: none; cursor: pointer; font-family: inherit; width: 88px; padding: 0; }
-.cn-circle { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #fff; box-shadow: var(--shadow); border: 3px solid transparent; transition: transform .15s, box-shadow .15s; }
-.cn-label { font-size: 11.5px; font-weight: 600; color: var(--text-2); text-align: center; line-height: 1.2; }
+.cn-circle { width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 19px; font-weight: 700; color: #fff; box-shadow: var(--shadow); border: 3px solid transparent; transition: transform .15s, box-shadow .15s; }
+.cn-label { font-size: 12.5px; font-weight: 600; color: var(--text-2); text-align: center; line-height: 1.2; }
 .cycle-node.apollo .cn-circle { background: var(--apollo); }
 .cycle-node.hs .cn-circle { background: var(--hs); }
 .cycle-node.sl .cn-circle { background: var(--sl); }
@@ -448,12 +450,9 @@ body.editing .video-url-field { display: block; }
 
   <!-- ============ OVERVIEW ============ -->
   <div class="tab-panel active" id="panel-overview">
-    <p class="lede">One repeatable pipeline, run separately for every <strong>ICP × country</strong>: <strong style="color:var(--apollo)">Apollo</strong> sources &amp; qualifies → <strong style="color:var(--hs)">HubSpot</strong> routes &amp; stores → <strong style="color:var(--sl)">Lemlist</strong> emails. New matches flow in automatically; outdated contacts drop out.</p>
-
-    <div class="callout danger"><span class="callout-tag">Excluded</span><span><strong>Benelux and DACH are off-limits for any cold outreach.</strong> Because of our cooperation with Dealsuite, we never cold-email the Benelux (Belgium, Netherlands, Luxembourg) or DACH (Germany, Austria, Switzerland) regions. Do not create Apollo lists, HubSpot lists or Lemlist campaigns for these countries under any ICP.</span></div>
+    <div class="callout danger"><span class="callout-tag">Excluded</span><span><strong>Benelux and DACH are off-limits for any cold outreach.</strong> Because of our cooperation with Dealsuite, we never cold-email the Benelux (Belgium, Netherlands, Luxembourg) or DACH (Germany, Austria, Switzerland) regions.</span></div>
 
     <div class="section-label">The routine</div>
-    <p class="lede">A <strong>circular routine</strong> you run per ICP × country and keep repeating. Tap a stage to see its steps — or use <strong>What's next?</strong> to walk the loop.</p>
     <div class="cycle-wrap">
       <div class="cycle" id="cycle">
         <svg class="cycle-svg" viewBox="0 0 300 300" aria-hidden="true">
@@ -513,7 +512,6 @@ body.editing .video-url-field { display: block; }
 
     <!-- ICPs -->
     <div class="section-label">Our ICPs</div>
-    <p class="lede">Each <strong>ICP</strong> (Ideal Customer Profile) is a lead type we target — its own Apollo persona, HubSpot list and Lemlist copy. Tap one for its definition:</p>
     <div class="icp-grid" id="icpGrid">
       <button class="icp-chip active" data-icp="pe"><span class="icp-dot" style="background:var(--green)"></span>Private Equity</button>
       <button class="icp-chip" data-icp="ma"><span class="icp-dot" style="background:var(--primary)"></span>M&amp;A Boutiques</button>
@@ -955,6 +953,40 @@ body.editing .video-url-field { display: block; }
       </div>
     </div>
 
+    <!-- L3 -->
+    <div class="step-card sl" id="step-lemlist-3">
+      <div class="step-head">
+        <div class="step-badge">8</div>
+        <div class="step-head-text">
+          <div class="step-kicker">Lemlist · Step 8</div>
+          <div class="step-title">Handle replies — tag &amp; route each lead</div>
+        </div>
+        <span class="step-done-pill">Done</span>
+        <span class="step-chevron">▶</span>
+      </div>
+      <div class="step-body">
+        <div class="block-label">What &amp; why</div>
+        <div class="context">
+          <p>As replies come in, every lead is <strong>tagged</strong> and routed. This keeps the campaign clean and makes sure interested leads reach the right person. There are two outcomes:</p>
+        </div>
+        <div class="block-label">Watch · tagging &amp; unsubscribing</div>
+        <div class="video-embed" data-arcade="lemlist-3"></div>
+        <div class="block-label">The two outcomes</div>
+        <div class="callout danger"><span class="callout-tag">Not interested</span><span>Tag the lead <strong>"not interested"</strong> and <strong>unsubscribe them from the email campaign</strong> so they get no further emails.</span></div>
+        <div class="callout tip"><span class="callout-tag">Interested</span><span>Tag the lead <strong>"interested lead"</strong> (same process), then <strong>notify Koen</strong>. He takes over the reply and all further communication from his own private account.</span></div>
+        <div class="tag-row">
+          <span class="tag red">Not interested → tag + unsubscribe</span>
+          <span class="tag green">Interested → tag + notify Koen</span>
+        </div>
+        <div class="block-label">Checklist</div>
+        <div class="checklist" data-step="lemlist-3">
+          <label class="check-item"><input type="checkbox"><span class="check-label">Tagged each reply "interested lead" or "not interested"</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Unsubscribed "not interested" leads from the campaign</span></label>
+          <label class="check-item"><input type="checkbox"><span class="check-label">Notified Koen of every interested lead (he handles it from his private account)</span></label>
+        </div>
+      </div>
+    </div>
+
     <div class="callout info" style="margin-top:8px;"><span class="callout-tag">Next</span><span>Once campaigns are live, watch how they perform &mdash; see the <strong>Performance</strong> tab.</span></div>
   </div>
 
@@ -967,6 +999,8 @@ body.editing .video-url-field { display: block; }
         <div class="tool-intro-sub">Not for analysing one campaign at a time. This is the <strong>consolidated analysis across every ICP and country</strong> &mdash; the whole program in one place.</div>
       </div>
     </div>
+
+    <a class="dash-link" href="https://ventureiq.github.io/viq-consultants/lemlist-metrics/" target="_blank" rel="noopener">Open the performance dashboard →</a>
 
     <div class="section-label">What it shows</div>
     <div class="metric-grid">
@@ -1079,6 +1113,7 @@ const ARCADE = {
   'hubspot-2':  'https://app.arcade.software/share/DlhPcwaGhzwkMtbrgPuB',
   'lemlist-1':  'https://app.arcade.software/share/jrWBvuouub6mUma9LSJA',
   'lemlist-2':  'https://app.arcade.software/share/UiAlwc19gOtgDGQQG4mB',
+  'lemlist-3':  'https://app.arcade.software/share/jMsM80qYGsDYF8do2oF3',
   'metrics':    'https://app.arcade.software/share/pjgiEkmyaVreHP6Enn4B'
 };
 
