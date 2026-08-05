@@ -118,7 +118,22 @@ a { color: var(--primary); }
 .step-card.done .step-done-pill { display: inline-block; }
 .step-body { display: none; padding: 4px 20px 20px; border-top: 1px solid var(--border); }
 .step-card.open .step-body { display: block; }
-.block-label { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); margin: 18px 0 8px; }
+.block-label { font-size: 14px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--text); margin: 20px 0 9px; display: flex; align-items: center; gap: 9px; line-height: 1.3; }
+.block-label::before { content: ''; width: 4px; height: 15px; border-radius: 2px; background: var(--primary); flex-shrink: 0; }
+.step-card.apollo .block-label::before { background: var(--apollo); }
+.step-card.hs .block-label::before { background: var(--hs); }
+.step-card.sl .block-label::before { background: var(--sl); }
+#panel-metrics .block-label::before { background: var(--green); }
+/* Cross-tool switch banner */
+.switch-banner { display: flex; align-items: center; gap: 11px; margin: 22px 0 11px; padding: 12px 15px; border-radius: var(--r-sm); font-size: 14px; font-weight: 600; border: 1px solid; line-height: 1.4; }
+.switch-banner .sb-icon { display: flex; flex-shrink: 0; }
+.switch-banner.hs { background: var(--hs-bg); border-color: var(--hs-border); color: #9a4a16; }
+.switch-banner.hs .sb-icon { color: var(--hs); }
+.switch-banner.hs strong { color: var(--hs); }
+.switch-banner.apollo { background: var(--apollo-bg); border-color: var(--apollo-border); color: #3f3fa0; }
+.switch-banner.apollo .sb-icon, .switch-banner.apollo strong { color: var(--apollo); }
+.switch-banner.sl { background: var(--sl-bg); border-color: var(--sl-border); color: #0b5a83; }
+.switch-banner.sl .sb-icon, .switch-banner.sl strong { color: var(--sl); }
 
 /* Context text */
 .context p { font-size: 13.5px; color: var(--text-2); line-height: 1.7; }
@@ -980,9 +995,9 @@ body.editing .video-url-field { display: block; }
         <div class="callout tip"><span class="callout-tag">Interested</span><span>Tag the lead <strong>"interested lead"</strong> (same process), then <strong>notify Koen</strong>. He takes over the reply and all further communication from his own private account.</span></div>
         <div class="callout info"><span class="callout-tag">After Koen replies</span><span>Once Koen has responded, re-tag the conversation <strong>"contacted by Koen"</strong> (or <strong>"contacted by Alex"</strong>), so it's clear the lead has been picked up.</span></div>
 
-        <div class="block-label">Clear interest → back to HubSpot</div>
+        <div class="switch-banner hs"><span class="sb-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 6h18"/><path d="M7 22l-4-4 4-4"/><path d="M21 18H3"/></svg></span><span>Now switch to <strong>HubSpot</strong> — for a clearly interested lead, create the deal there.</span></div>
         <div class="context">
-          <p>If a lead shows <strong>clear interest</strong>, then — after tagging it in Lemlist — circle back to HubSpot: create a <strong>deal</strong> and filter it as <strong>"Indicated Interest"</strong>.</p>
+          <p>After tagging the lead in Lemlist, go to HubSpot: create a <strong>deal</strong> and filter it as <strong>"Indicated Interest"</strong>.</p>
         </div>
         <div class="video-embed" data-arcade="lemlist-4"></div>
 
